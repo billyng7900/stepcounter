@@ -17,6 +17,8 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.List;
+
 public class MainActivity extends Activity implements SensorEventListener{
     TextView stepText;
     int stepCounter;
@@ -30,8 +32,10 @@ public class MainActivity extends Activity implements SensorEventListener{
         receiver = new MyReceiver();
         IntentFilter filter = new IntentFilter();
         filter.addAction("android.intent.action.teststepcounter");
-        this.registerReceiver(receiver,filter);
-        onStartService();
+        this.registerReceiver(receiver, filter);
+        if(!isMyServiceRunning(SensorService.class))
+            onStartService();
+
     }
 
     public void onStartService() {
@@ -43,6 +47,7 @@ public class MainActivity extends Activity implements SensorEventListener{
 
     private boolean isMyServiceRunning(Class<?> serviceClass) {
         ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        List<ActivityManager.RunningServiceInfo> serviceInfo = manager.getRunningServices(Integer.MAX_VALUE);
         for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
             if (serviceClass.getName().equals(service.service.getClassName())) {
                 //check it is here
