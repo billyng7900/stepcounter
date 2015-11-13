@@ -9,14 +9,17 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name" >
+            android:label="Step Counter" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Fitness" />
+        <activity
+            android:name=".FitnessActivity"
+            android:label="Fitness Plan"
+        />
 
         <service
             android:name=".SensorService"
