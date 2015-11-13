@@ -3,4 +3,11 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+
+    <string-array name="bmi_status">
+        <item>Underweight</item>
+        <item>Healthy weight</item>
+        <item>Overweight</item>
+        <item>Obese</item>
+    </string-array>
 </resources>
