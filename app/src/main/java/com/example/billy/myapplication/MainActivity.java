@@ -40,8 +40,6 @@ public class MainActivity extends Activity implements SensorEventListener{
 
     public void onStartService() {
         Intent i = new Intent(this,SensorService.class);
-        i.putExtra("stepCounter", stepCounter);
-        i.putExtra("test", "hihi");
         startService(i);
     }
 
