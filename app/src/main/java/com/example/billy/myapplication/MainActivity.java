@@ -105,31 +105,6 @@ public class MainActivity extends Activity implements SensorEventListener{
 
     }
 
-    public void RegisterListeners(int sensorType)
-    {
-        SensorManager sensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
-        Sensor sensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR);
-        if(sensor!=null) {
-            sensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_FASTEST);
-            Toast toast = Toast.makeText(getApplicationContext(), "Sensor listener registered of type: " + sensorType, Toast.LENGTH_SHORT);
-            toast.setGravity(Gravity.TOP, 0, 0);
-            toast.show();
-        }
-        else
-        {
-            Toast.makeText(this,"Counter Not available",Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    public void UnRegisterListeners()
-    {
-        SensorManager sensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
-        sensorManager.unregisterListener(this);
-        Toast toast =Toast.makeText(getApplicationContext(), "Sensor listener Unregistered",Toast.LENGTH_SHORT);
-        toast.setGravity(Gravity.TOP,0,0);
-        toast.show();
-    }
-
     @Override
     protected void onPause() {
         super.onPause();
