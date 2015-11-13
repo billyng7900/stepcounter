@@ -49,14 +49,17 @@ public class SensorService extends Service implements SensorEventListener {
         currentY = 0;
         myTimer = new Timer();
         myTimerStore = new MyTimerStore();
+        dbHelper = new StepDbHelper(this);
+        dbHelper.getWritableDatabase();
     }
 
     public void getDbData()
     {
-        dbHelper = new StepDbHelper(this);
+
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         String[] projection = {StepEntry.COLUMN_NAME_Step};
-        Cursor c = db.query(StepEntry.TABLE_NAME,projection,StepEntry.COLUMN_NAME_Date+"="+getDate(),null,null,null,null,null);
+        String[] args = {getDate()};
+        Cursor c = db.query(StepEntry.TABLE_NAME,projection,StepEntry.COLUMN_NAME_Date+"=?",args,null,null,null,null);
         if(c.moveToFirst())
         {
             stepCounter=c.getInt(0);
@@ -79,7 +82,7 @@ public class SensorService extends Service implements SensorEventListener {
         } else {
             Toast.makeText(this, "Counter Not available", Toast.LENGTH_SHORT).show();
         }
-        myTimer.scheduleAtFixedRate(myTimerStore,0,10000);
+        myTimer.scheduleAtFixedRate(myTimerStore,0,900000);
         return super.onStartCommand(intent, flags, startId);
     }
 
@@ -132,7 +135,8 @@ public class SensorService extends Service implements SensorEventListener {
             boolean hasTodayData = false;
             SQLiteDatabase db = dbHelper.getReadableDatabase();
             String[] projection = {StepEntry.COLUMN_NAME_Step};
-            Cursor c = db.query(StepEntry.TABLE_NAME, projection, StepEntry.COLUMN_NAME_Date + "=" + getDate(), null, null, null, null, null);
+            String[] args = {getDate()};
+            Cursor c = db.query(StepEntry.TABLE_NAME, projection, StepEntry.COLUMN_NAME_Date + "=?", args, null, null, null, null);
             if(c.moveToFirst())
             {
                 hasTodayData = true;
@@ -148,9 +152,11 @@ public class SensorService extends Service implements SensorEventListener {
             else
             {
                 ContentValues upValues = new ContentValues();
-                upValues.put(StepEntry.COLUMN_NAME_Step,stepCounter);
-                dbWrite.update(StepEntry.TABLE_NAME,upValues,StepEntry.COLUMN_NAME_Date+"="+getDate(),null);
+                upValues.put(StepEntry.COLUMN_NAME_Step, stepCounter);
+                String[] argsUpdate = {getDate()};
+                dbWrite.update(StepEntry.TABLE_NAME,upValues,StepEntry.COLUMN_NAME_Date+"=?",argsUpdate);
             }
+
         }
     }
 }
