@@ -1,37 +1,56 @@
 package com.example.billy.myapplication;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by WaiHing on 14/11/2015.
  */
 public class FitnessPlan {
     FitnessDbHelper dbHelper;
+    final private float stepCal = 0.044f;
+    final private int calPerKg = 7700;
     private float height;
     private float weight;
     private float BMI_value;
     private String BMI_status;
+    private int targetStep;
 
     public FitnessPlan(){
         height = 0.00f;
         weight = 0.00f;
         BMI_value = 0.00f;
+        targetStep = 0;
         //getDbData();
     }
 
     public void getDbData(){
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         String[] projection_h = {FitnessEntry.COLUMN_NAME_Height};
-        String[] projection_w = {FitnessEntry.COLUMN_NAME_Height};
         Cursor c = db.query(FitnessEntry.TABLE_NAME, projection_h, null, null, null, null, null, null);
         if(c.moveToFirst()) {
             height = c.getFloat(0);
             weight = c.getFloat(1);
+            targetStep = c.getInt(2);
         }else{
             height = 0.00f;
             weight = 0.00f;
+            targetStep = 0;
         }
+    }
+
+    public void setDbData(){
+        String[] args = {getDate()};
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(FitnessEntry.COLUMN_NAME_Target, targetStep);
+        values.put(FitnessEntry.COLUMN_NAME_Date, getDate());
+       // dbHelper.insertTargetStep(values, args, this);
     }
 
     public float getBMI(){
@@ -85,5 +104,18 @@ public class FitnessPlan {
                 break;
         }
         return plan;
+    }
+
+    public int getTargetStep(){
+        float targetCalBurn = (weight - (int)getSuggestedWeight(21)) * calPerKg;
+        targetStep = (int)(targetCalBurn/stepCal);
+        return targetStep;
+    }
+
+    private String getDate()
+    {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        Date date = new Date();
+        return dateFormat.format(date);
     }
 }
