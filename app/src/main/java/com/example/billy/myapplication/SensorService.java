@@ -67,9 +67,6 @@ public class SensorService extends Service implements SensorEventListener {
         Sensor sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         if (sensor != null) {
             sensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_NORMAL);
-            Toast toast = Toast.makeText(getApplicationContext(), "Sensor listener registered of type: ", Toast.LENGTH_SHORT);
-            toast.setGravity(Gravity.TOP, 0, 0);
-            toast.show();
         } else {
             Toast.makeText(this, "Counter Not available", Toast.LENGTH_SHORT).show();
         }
