@@ -19,8 +19,7 @@ public class StepDbHelper extends SQLiteOpenHelper {
     private static final String COMMA_SEP = ",";
     private static final String SQL_CREATE_ENTRIES =
             "CREATE TABLE " + StepEntry.TABLE_NAME+ " (" +
-                    StepEntry._ID + " INTEGER PRIMARY KEY," +
-                    StepEntry.COLUMN_NAME_Date + TEXT_TYPE + COMMA_SEP +
+                    StepEntry.COLUMN_NAME_Date + TEXT_TYPE + "PRIMARY KEY"+ COMMA_SEP +
                     StepEntry.COLUMN_NAME_Step+ INT_TYPE+");";
     private static final String SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS " + StepEntry.TABLE_NAME;

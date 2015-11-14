@@ -28,7 +28,8 @@
 
         <activity
             android:name=".StepRecordActivity"
-            android:label="@string/title_activity_step_record" >
+            android:label="@string/title_activity_step_record"
+            android:exported="true">
         </activity>
     </application>
 

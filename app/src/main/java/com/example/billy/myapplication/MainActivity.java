@@ -101,11 +101,21 @@ public class MainActivity extends Activity implements SensorEventListener{
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == R.id.action_step_record) {
+            switchIntent(StepRecordActivity.class);
+        }
+        else if(id==R.id.action_fitness)
+        {
+            switchIntent(FitnessActivity.class);
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void switchIntent(Class<?> activityClass)
+    {
+        Intent intent = new Intent(this,activityClass);
+        startActivity(intent);
     }
 
     @Override
