@@ -26,16 +26,18 @@ import java.util.TimerTask;
  * Created by Billy on 10/11/2015.
  */
 public class SensorService extends Service implements SensorEventListener {
-    int stepCounter;
-    SensorManager sensorManager;
-    String isRunning;
+    private int stepCounter;
+    private SensorManager sensorManager;
+    private String isRunning;
     private float previousY;
     private float currentY;
     private int numSteps;
     private int threshold;
-    Timer myTimer;
-    MyTimerStore myTimerStore;
-    StepDbHelper dbHelper;
+    private Timer myTimer;
+    private MyTimerStore myTimerStore;
+    private  StepDbHelper dbHelper;
+    private Context context = this;
+
     public SensorService() {
 
     }
@@ -50,28 +52,17 @@ public class SensorService extends Service implements SensorEventListener {
         myTimer = new Timer();
         myTimerStore = new MyTimerStore();
         dbHelper = new StepDbHelper(this);
-        dbHelper.getWritableDatabase();
+
     }
 
-    public void getDbData()
-    {
-
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-        String[] projection = {StepEntry.COLUMN_NAME_Step};
-        String[] args = {getDate()};
-        Cursor c = db.query(StepEntry.TABLE_NAME,projection,StepEntry.COLUMN_NAME_Date+"=?",args,null,null,null,null);
-        if(c.moveToFirst())
-        {
-            stepCounter=c.getInt(0);
-        }
-        else
-        {
-            stepCounter = 0;
-        }
-    }
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        getDbData();
+        String[] args = {getDate()};
+        int dbStep = dbHelper.getDbStep(args, context);
+        if(dbStep!=-1)
+            stepCounter = dbStep;
+        else
+            stepCounter = 0;
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         Sensor sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         if (sensor != null) {
@@ -133,28 +124,26 @@ public class SensorService extends Service implements SensorEventListener {
         @Override
         public void run() {
             boolean hasTodayData = false;
-            SQLiteDatabase db = dbHelper.getReadableDatabase();
-            String[] projection = {StepEntry.COLUMN_NAME_Step};
             String[] args = {getDate()};
-            Cursor c = db.query(StepEntry.TABLE_NAME, projection, StepEntry.COLUMN_NAME_Date + "=?", args, null, null, null, null);
-            if(c.moveToFirst())
+            int dbStep = dbHelper.getDbStep(args, context);
+            if(dbStep!=-1)
             {
                 hasTodayData = true;
             }
-            SQLiteDatabase dbWrite = dbHelper.getWritableDatabase();
             if(!hasTodayData)
             {
+                stepCounter = 0; //to ensure yesterday's data is cleared.
                 ContentValues values = new ContentValues();
                 values.put(StepEntry.COLUMN_NAME_Date, getDate());
                 values.put(StepEntry.COLUMN_NAME_Step, stepCounter);
-                dbWrite.insert(StepEntry.TABLE_NAME, null, values);
+                dbHelper.insertStep(values,context);
             }
             else
             {
                 ContentValues upValues = new ContentValues();
                 upValues.put(StepEntry.COLUMN_NAME_Step, stepCounter);
                 String[] argsUpdate = {getDate()};
-                dbWrite.update(StepEntry.TABLE_NAME,upValues,StepEntry.COLUMN_NAME_Date+"=?",argsUpdate);
+                dbHelper.updateStep(upValues,argsUpdate,context);
             }
 
         }

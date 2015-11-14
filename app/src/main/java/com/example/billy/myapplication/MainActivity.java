@@ -6,6 +6,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -17,13 +19,17 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class MainActivity extends Activity implements SensorEventListener{
     TextView stepText;
-    int stepCounter;
     int systemSteps = 0;
+    int stepCounter;
     public MyReceiver receiver;
+    StepDbHelper dbHelper;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +39,18 @@ public class MainActivity extends Activity implements SensorEventListener{
         IntentFilter filter = new IntentFilter();
         filter.addAction("android.intent.action.teststepcounter");
         this.registerReceiver(receiver, filter);
+        //get DB data
+        dbHelper = new StepDbHelper(this);
+        String[] args = {getDate()};
+        stepCounter = dbHelper.getDbStep(args,this);
+        if(stepCounter!=-1)
+        {
+            stepText.setText(String.valueOf(stepCounter));
+        }
+        else
+        {
+            stepText.setText(String.valueOf(0));
+        }
         if(!isMyServiceRunning(SensorService.class))
             onStartService();
 
@@ -123,5 +141,12 @@ public class MainActivity extends Activity implements SensorEventListener{
             stepCounter = bundle.getInt("stepCounter");
             stepText.setText(String.valueOf(stepCounter));
         }
+    }
+
+    private String getDate()
+    {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        Date date = new Date();
+        return dateFormat.format(date);
     }
 }
