@@ -20,18 +20,13 @@ public class FitnessPlan {
     public void getDbData(){
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         String[] projection_h = {FitnessEntry.COLUMN_NAME_Height};
-        String[] projection_w = {FitnessEntry.COLUMN_NAME_Height};
+        String[] projection_w = {FitnessEntry.COLUMN_NAME_Weight};
         Cursor c = db.query(FitnessEntry.TABLE_NAME, projection_h, null, null, null, null, null, null);
         if(c.moveToFirst()){
             height = c.getFloat(0);
+            weight = c.getFloat(1);
         }else{
             height = 0;
-        }
-
-        Cursor c2 = db.query(FitnessEntry.TABLE_NAME, projection_w, null, null, null, null, null, null);
-        if(c2.moveToFirst()){
-            weight = c.getFloat(0);
-        }else{
             weight = 0;
         }
     }
