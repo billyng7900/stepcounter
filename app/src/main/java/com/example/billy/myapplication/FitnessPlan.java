@@ -1,6 +1,7 @@
 package com.example.billy.myapplication;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
@@ -31,8 +32,8 @@ public class FitnessPlan {
 
     public void getDbData(){
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-        String[] projection_h = {FitnessEntry.COLUMN_NAME_Height};
-        Cursor c = db.query(FitnessEntry.TABLE_NAME, projection_h, null, null, null, null, null, null);
+        String[] projection = {FitnessEntry.COLUMN_NAME_Height,FitnessEntry.COLUMN_NAME_Weight,FitnessEntry.COLUMN_NAME_Target};
+        Cursor c = db.query(FitnessEntry.TABLE_NAME, projection, null, null, null, null, null, null);
         if(c.moveToFirst()) {
             height = c.getFloat(0);
             weight = c.getFloat(1);
@@ -44,13 +45,13 @@ public class FitnessPlan {
         }
     }
 
-    public void setDbData(){
+    public void setDbData(Context context){
         String[] args = {getDate()};
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(FitnessEntry.COLUMN_NAME_Target, targetStep);
         values.put(FitnessEntry.COLUMN_NAME_Date, getDate());
-       // dbHelper.insertTargetStep(values, args, this);
+       dbHelper.insertTargetStep(values, args, context);
     }
 
     public float getBMI(){

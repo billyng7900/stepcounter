@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.billy.myapplication" >
 
+    <uses-feature android:name="android.hardware.sensor.stepcounter" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -18,12 +20,16 @@
         </activity>
         <activity
             android:name=".FitnessActivity"
-            android:label="Fitness Plan"
-        />
+            android:label="Fitness Plan" />
 
         <service
             android:name=".SensorService"
             android:exported="false" />
+
+        <activity
+            android:name=".StepRecordActivity"
+            android:label="@string/title_activity_step_record" >
+        </activity>
     </application>
-    <uses-feature android:name="android.hardware.sensor.stepcounter" />
+
 </manifest>

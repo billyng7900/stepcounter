@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.ArrayList;
+
 /**
  * Created by Billy on 13/11/2015.
  */
@@ -67,5 +69,24 @@ public class StepDbHelper extends SQLiteOpenHelper {
         StepDbHelper dbHelper = new StepDbHelper(context);
         SQLiteDatabase dbWrite = dbHelper.getWritableDatabase();
         dbWrite.update(StepEntry.TABLE_NAME, values, StepEntry.COLUMN_NAME_Date + "=?", args);
+    }
+
+    public ArrayList<Step> getAllStepRecord(Context context)
+    {
+        ArrayList<Step> stepList = new ArrayList<>();
+        StepDbHelper dbHelper = new StepDbHelper(context);
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        String[] projection = {StepEntry.COLUMN_NAME_Date,StepEntry.COLUMN_NAME_Step};
+        Cursor c = db.query(StepEntry.TABLE_NAME,projection,null,null,null,null,null);
+        if(c.moveToFirst())
+        {
+            do {
+                Step step = new Step();
+                step.setDate(c.getString(0));
+                step.setStep(c.getInt(1));
+                stepList.add(step);
+            }while (c.moveToNext());
+        }
+        return stepList;
     }
 }
