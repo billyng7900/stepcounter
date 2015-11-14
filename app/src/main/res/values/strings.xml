@@ -7,4 +7,6 @@
     <string name="action_fitness">fitness</string>
     <string name="step_message">Current Step Today: </string>
     <string name="title_activity_step_record">StepRecordActivity</string>
+    <string name="step_record_title_date">Date</string>
+    <string name="step_record_title_text">Step</string>
 </resources>
