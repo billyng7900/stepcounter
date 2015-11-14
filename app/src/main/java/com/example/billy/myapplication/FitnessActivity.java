@@ -11,7 +11,7 @@ import com.example.billy.myapplication.R;
  */
 public class FitnessActivity extends Activity {
 
-    TextView tv_BMI;
+    TextView tv_BMI, tv_sweight;
     public FitnessPlan fitness;
 
     @Override
@@ -19,7 +19,9 @@ public class FitnessActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inifitness);
         tv_BMI = (TextView)findViewById(R.id.tv_bmistatus);
+        tv_sweight = (TextView)findViewById(R.id.tv_sweight);
         fitness = new FitnessPlan();
         tv_BMI.setText("BMI = " + String.format("%.1f",fitness.getBMI()) + "\nYou are in " + fitness.getBMIStatus());
+        tv_sweight.setText(fitness.getSuggestedWeightPlan());
     }
 }
