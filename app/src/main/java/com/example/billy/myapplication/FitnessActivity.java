@@ -14,7 +14,8 @@ public class FitnessActivity extends Activity {
 
     TextView tv_BMI, tv_sweight, tv_step, tv_target;
     public FitnessPlan fitness;
-    Float height, weight, target;
+    Float height, weight;
+    int target,targetStepDay;
     String startDate;
     SharedPreferences settings;
 
@@ -28,14 +29,16 @@ public class FitnessActivity extends Activity {
         SharedPreferences.Editor editor = settings.edit();
         editor.putFloat("height", 1.65f);
         editor.putFloat("weight", 60);
-        editor.putFloat("target", 0);
+        editor.putInt("targetTotal", 0);
+        editor.putInt("targetStepDay",0);
         editor.putString("startDate", "test");
         editor.commit();
 //test value//
 
         height = settings.getFloat("height", 0.00f);
         weight = settings.getFloat("weight", 0.00f);
-        target = settings.getFloat("target", 0.00f);
+        target = settings.getInt("targetTotal", 0);
+        targetStepDay = settings.getInt("targetStepDay",0);
         startDate = settings.getString("startDate", "ERROR");
 
         fitness = new FitnessPlan(height, weight);
@@ -56,7 +59,8 @@ public class FitnessActivity extends Activity {
         SharedPreferences.Editor editor = settings.edit();
         editor.putFloat("height", fitness.getHeight());
         editor.putFloat("weight", fitness.getWeight());
-        editor.putFloat("target", fitness.getTargetStep());
+        editor.putInt("targetTotal", fitness.getTargetStep());
+        editor.putInt("targetStepDay",fitness.getHealthyStyle());
         editor.putString("startDate", fitness.getDate());
         editor.commit();
 

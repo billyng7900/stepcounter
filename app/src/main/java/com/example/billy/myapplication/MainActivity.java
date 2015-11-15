@@ -6,6 +6,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.hardware.Sensor;
@@ -25,7 +26,7 @@ import java.util.List;
 import java.util.Locale;
 
 public class MainActivity extends Activity implements SensorEventListener{
-    TextView stepText;
+    TextView stepText,targetText;
     int systemSteps = 0;
     int stepCounter;
     public MyReceiver receiver;
@@ -51,6 +52,9 @@ public class MainActivity extends Activity implements SensorEventListener{
         {
             stepText.setText(String.valueOf(0));
         }
+        SharedPreferences settings = getSharedPreferences("fitness_plan",MODE_PRIVATE);
+        int targetStep = settings.getInt("targetStepDay",0);
+        
         if(!isMyServiceRunning(SensorService.class))
             onStartService();
 
