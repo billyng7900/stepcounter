@@ -14,7 +14,6 @@ import java.util.Locale;
  * Created by WaiHing on 14/11/2015.
  */
 public class FitnessPlan {
-    FitnessDbHelper dbHelper;
     final private float stepCal = 0.044f;
     final private int calPerKg = 7700;
     private float height;
