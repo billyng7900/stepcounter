@@ -67,7 +67,7 @@ public class MainActivity extends Activity implements SensorEventListener{
     public void setUpTarget()
     {
         SharedPreferences settings = getSharedPreferences("fitness_plan",MODE_PRIVATE);
-        int targetStep = 0;//settings.getInt("targetStepDay",0);
+        int targetStep = settings.getInt("targetStepDay",0);
         hasRemainingStep = false;
         if(targetStep!=0)
         {
