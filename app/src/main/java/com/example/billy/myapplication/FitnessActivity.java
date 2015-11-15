@@ -65,8 +65,7 @@ public class FitnessActivity extends Activity {
         editor.putInt("targetStepDay", fitness.getHealthyStyle());
         editor.putString("startDate", fitness.getDate());
         editor.commit();
-
-        switchIntent(DailyFitnessActivity.class);
+        this.finish();
     }
 
     @Override

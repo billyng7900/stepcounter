@@ -58,7 +58,6 @@ public class MainActivity extends Activity implements SensorEventListener{
         {
             stepText.setText(String.valueOf(0));
         }
-        setUpTarget();
         if(!isMyServiceRunning(SensorService.class))
             onStartService();
 
@@ -72,6 +71,7 @@ public class MainActivity extends Activity implements SensorEventListener{
         if(targetStep!=0)
         {
             fitnessButton.setVisibility(View.INVISIBLE);
+            targetText.setVisibility(View.VISIBLE);
             int remainingStep = targetStep - stepCounter;
             if(remainingStep>0) {
                 targetText.setText("Today Remaining Step: " + remainingStep);
@@ -83,6 +83,7 @@ public class MainActivity extends Activity implements SensorEventListener{
         else
         {
             targetText.setVisibility(View.INVISIBLE);
+            fitnessButton.setVisibility(View.VISIBLE);
         }
     }
 
@@ -121,9 +122,7 @@ public class MainActivity extends Activity implements SensorEventListener{
     @Override
     protected void onResume() {
         super.onResume();
-        /*isRunning = true;
-        RegisterListeners(Sensor.TYPE_STEP_COUNTER);
-        */
+        setUpTarget();
     }
 
     @Override
