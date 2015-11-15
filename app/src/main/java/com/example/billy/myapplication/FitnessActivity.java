@@ -1,17 +1,11 @@
 package com.example.billy.myapplication;
 
 import android.app.Activity;
-import android.content.ContentValues;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
-
-import com.example.billy.myapplication.R;
-
-import java.util.ArrayList;
 
 /**
  * Created by WaiHing on 13/11/2015.
@@ -36,7 +30,6 @@ public class FitnessActivity extends Activity {
         editor.putFloat("weight", 60);
         editor.putFloat("target", 0);
         editor.putString("startDate", "test");
-
         editor.commit();
 //test value//
 
@@ -65,8 +58,8 @@ public class FitnessActivity extends Activity {
         editor.putFloat("weight", fitness.getWeight());
         editor.putFloat("target", fitness.getTargetStep());
         editor.putString("startDate", fitness.getDate());
-
         editor.commit();
+
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }

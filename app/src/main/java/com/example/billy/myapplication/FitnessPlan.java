@@ -1,11 +1,5 @@
 package com.example.billy.myapplication;
 
-import android.content.ContentValues;
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -19,7 +13,6 @@ public class FitnessPlan {
     private float height;
     private float weight;
     private float BMI_value;
-    private String BMI_status;
     private int targetStep;
 
     public FitnessPlan(Float h, Float w) {
@@ -43,7 +36,7 @@ public class FitnessPlan {
     }
 
     public String getBMIStatus(){
-        BMI_status = "";
+        String BMI_status = "";
         getBMI();
 
         if(BMI_value < 18.5){
@@ -62,7 +55,7 @@ public class FitnessPlan {
     }
 
     public float getSuggestedWeight(float bmi){
-        Float sWeight = 0.00f;
+        Float sWeight;
         sWeight = (height * height) * bmi;
         return sWeight;
     }
@@ -97,13 +90,12 @@ public class FitnessPlan {
     public int getHealthyStyle(){
         if(BMI_value>=25){
             return 10000;
-        }else {
+        }else{
             return 6000;
         }
     }
 
-    public String getDate()
-    {
+    public String getDate(){
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         Date date = new Date();
         return dateFormat.format(date);

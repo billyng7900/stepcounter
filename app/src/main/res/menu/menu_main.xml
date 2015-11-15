@@ -3,7 +3,7 @@
     <item android:id="@+id/action_step_record" android:title="@string/action_step_record"
         android:orderInCategory="100" android:showAsAction="never">
         </item>
-    <item android:id="@+id/action_fitness" android:title="@string/action_fitness"
+    <item android:id="@+id/action_fitness" android:title="Start New Fitness Plan"
         android:orderInCategory="100" android:showAsAction="never">
     </item>
 </menu>
