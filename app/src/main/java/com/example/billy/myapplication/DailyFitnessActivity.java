@@ -26,7 +26,7 @@ public class DailyFitnessActivity extends Activity {
     int targetTotal,targetStepDay;
     String startDate;
     ArrayList<Step> stepArrayList;
-    int accumulatedSteps;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -43,7 +43,6 @@ public class DailyFitnessActivity extends Activity {
 
         fitness = new FitnessPlan(height, weight);
         stepArrayList = new ArrayList<>();
-        accumulatedSteps = 0;
 
         tv_dailyStep = (TextView)findViewById(R.id.tv_dailyStep);
         tv_targetDays = (TextView)findViewById(R.id.tv_targetDays);
@@ -55,6 +54,7 @@ public class DailyFitnessActivity extends Activity {
     }
 
     public int getStepRecord(){
+        int accumulatedSteps = 0;
         StepDbHelper dbHelper = new StepDbHelper(this);
         stepArrayList = dbHelper.getAllStepRecord(this);
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
@@ -74,7 +74,7 @@ public class DailyFitnessActivity extends Activity {
     }
 
     public void onViewStep(View v){
-        switchIntent(MainActivity.class);
+        this.finish();
     }
 
     @Override
@@ -82,10 +82,11 @@ public class DailyFitnessActivity extends Activity {
         super.onStop();
     }
 
-    private void switchIntent(Class<?> activityClass)
+    /*private void switchIntent(Class<?> activityClass)
     {
         Intent intent = new Intent(this,activityClass);
         startActivity(intent);
     }
+    */
 
 }
