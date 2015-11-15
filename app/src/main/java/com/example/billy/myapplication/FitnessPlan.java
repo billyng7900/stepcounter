@@ -2,6 +2,7 @@ package com.example.billy.myapplication;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
@@ -22,43 +23,22 @@ public class FitnessPlan {
     private String BMI_status;
     private int targetStep;
 
-    public FitnessPlan(){
-        height = 0.00f;
-        weight = 0.00f;
+    public FitnessPlan(Float h, Float w) {
+        height = h;
+        weight = w;
         BMI_value = 0.00f;
         targetStep = 0;
-        //getDbData();
     }
 
-    public void getDbData(){
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-        String[] projection = {FitnessEntry.COLUMN_NAME_Height,FitnessEntry.COLUMN_NAME_Weight,FitnessEntry.COLUMN_NAME_Target};
-        Cursor c = db.query(FitnessEntry.TABLE_NAME, projection, null, null, null, null, null, null);
-        if(c.moveToFirst()) {
-            height = c.getFloat(0);
-            weight = c.getFloat(1);
-            targetStep = c.getInt(2);
-        }else{
-            height = 0.00f;
-            weight = 0.00f;
-            targetStep = 0;
-        }
+    public float getHeight() {
+        return height;
     }
 
-    public void setDbData(Context context){
-        String[] args = {getDate()};
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(FitnessEntry.COLUMN_NAME_Target, targetStep);
-        values.put(FitnessEntry.COLUMN_NAME_Date, getDate());
-       dbHelper.insertTargetStep(values, args, context);
+    public float getWeight() {
+        return weight;
     }
 
     public float getBMI(){
-//test value//
-        height = 1.55f;
-        weight = 72;
-//test value//
         BMI_value = (weight/height)/height;
         return BMI_value;
     }
@@ -108,12 +88,22 @@ public class FitnessPlan {
     }
 
     public int getTargetStep(){
-        float targetCalBurn = (weight - (int)getSuggestedWeight(21)) * calPerKg;
-        targetStep = (int)(targetCalBurn/stepCal);
+        if(BMI_value>=25) {
+            float targetCalBurn = (weight - (int) getSuggestedWeight(21)) * calPerKg;
+            targetStep = (int) (targetCalBurn / stepCal);
+        }
         return targetStep;
     }
 
-    private String getDate()
+    public int getHealthyStyle(){
+        if(BMI_value>=25){
+            return 10000;
+        }else {
+            return 6000;
+        }
+    }
+
+    public String getDate()
     {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         Date date = new Date();
