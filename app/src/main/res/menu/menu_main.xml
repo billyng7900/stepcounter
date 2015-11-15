@@ -2,14 +2,14 @@
     xmlns:tools="http://schemas.android.com/tools" tools:context=".MainActivity">
     <item android:id="@+id/action_step_record" android:title="@string/action_step_record"
         android:orderInCategory="100" android:showAsAction="always"
-        android:icon="@drawable/view_record">
+        android:icon="@drawable/view_step_record">
         </item>
     <item android:id="@+id/action_fitness" android:title="Start New Fitness Plan"
-        android:orderInCategory="100" android:showAsAction="never"
+        android:orderInCategory="100" android:showAsAction="always"
         android:icon="@drawable/new_fitness_plan">
     </item>
     <item android:id="@+id/action_daily_fitness" android:title="View My Fitness Plan"
-        android:orderInCategory="100" android:showAsAction="never"
+        android:orderInCategory="100" android:showAsAction="always"
         android:icon="@drawable/fitness_plan">
     </item>
 </menu>
