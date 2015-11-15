@@ -9,6 +9,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
+
 /**
  * Created by WaiHing on 15/11/2015.
  */
@@ -16,6 +22,11 @@ public class DailyFitnessActivity extends Activity {
 
     TextView tv_dailyStep, tv_targetDays;
     FitnessPlan fitness;
+    Float height, weight;
+    int targetTotal,targetStepDay;
+    String startDate;
+    ArrayList<Step> stepArrayList;
+    int accumulatedSteps;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -24,21 +35,42 @@ public class DailyFitnessActivity extends Activity {
 
         SharedPreferences settings = getSharedPreferences("fitness_plan", MODE_PRIVATE);
 
-        Float height = settings.getFloat("height", 0.00f);
-        Float weight = settings.getFloat("weight", 0.00f);
-        int targetTotal = settings.getInt("targetTotal", 0);
-        int targetStepDay = settings.getInt("targetStepDay", 0);
-        String startDate = settings.getString("startDate", "ERROR");
+        height = settings.getFloat("height", 0.00f);
+        weight = settings.getFloat("weight", 0.00f);
+        targetTotal = settings.getInt("targetTotal", 0);
+        targetStepDay = settings.getInt("targetStepDay", 0);
+        startDate = settings.getString("startDate", "ERROR");
 
         fitness = new FitnessPlan(height, weight);
+        stepArrayList = new ArrayList<>();
+        accumulatedSteps = 0;
 
         tv_dailyStep = (TextView)findViewById(R.id.tv_dailyStep);
         tv_targetDays = (TextView)findViewById(R.id.tv_targetDays);
 
         tv_dailyStep.setText("Target Steps for Today: " + fitness.getHealthyStyle());
         if(fitness.getBMI()>=25) {
-            tv_targetDays.setText("Target Days: " + targetTotal / targetStepDay);
+            tv_targetDays.setText("Target Days: " + (targetTotal-getStepRecord())/targetStepDay);
         }
+    }
+
+    public int getStepRecord(){
+        StepDbHelper dbHelper = new StepDbHelper(this);
+        stepArrayList = dbHelper.getAllStepRecord(this);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        try {
+        Date planStartDate = dateFormat.parse(startDate);
+            for (int i=0; i<stepArrayList.size();i++){
+                String s = stepArrayList.get(i).getDate();
+                Date recordDate = dateFormat.parse(s);
+            if(recordDate.equals(planStartDate) || recordDate.after(planStartDate)){
+                accumulatedSteps += stepArrayList.get(i).getStep();
+            }
+        }
+        }catch (ParseException e){
+            e.printStackTrace();
+        }
+        return accumulatedSteps;
     }
 
     public void onViewStep(View v){

@@ -17,7 +17,7 @@ public class FitnessActivity extends Activity {
     TextView tv_BMI, tv_sweight, tv_step, tv_target;
     public FitnessPlan fitness;
     Float height, weight;
-    int target,targetStepDay;
+    int targetTotal,targetStepDay;
     String startDate;
     SharedPreferences settings;
 
@@ -39,7 +39,7 @@ public class FitnessActivity extends Activity {
 
         height = settings.getFloat("height", 0.00f);
         weight = settings.getFloat("weight", 0.00f);
-        target = settings.getInt("targetTotal", 0);
+        targetTotal = settings.getInt("targetTotal", 0);
         targetStepDay = settings.getInt("targetStepDay", 0);
         startDate = settings.getString("startDate", "ERROR");
 
