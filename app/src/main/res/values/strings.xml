@@ -10,4 +10,5 @@
     <string name="step_record_title_date">Date</string>
     <string name="step_record_title_text">Step</string>
     <string name="main_button">View Step Record</string>
+    <string name="main_set_plan">Set Fitness Plan Now!</string>
 </resources>

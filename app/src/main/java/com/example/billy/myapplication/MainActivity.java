@@ -17,6 +17,8 @@ import android.os.*;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,15 +29,19 @@ import java.util.Locale;
 
 public class MainActivity extends Activity implements SensorEventListener{
     TextView stepText,targetText;
+    Button fitnessButton;
     int systemSteps = 0;
     int stepCounter;
     public MyReceiver receiver;
     StepDbHelper dbHelper;
+    boolean hasRemainingStep;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         stepText = (TextView)findViewById(R.id.text_step);
+        targetText = (TextView)findViewById(R.id.text_targetStep);
+        fitnessButton = (Button)findViewById(R.id.button_fitness);
         receiver = new MyReceiver();
         IntentFilter filter = new IntentFilter();
         filter.addAction("android.intent.action.teststepcounter");
@@ -52,12 +58,42 @@ public class MainActivity extends Activity implements SensorEventListener{
         {
             stepText.setText(String.valueOf(0));
         }
-        SharedPreferences settings = getSharedPreferences("fitness_plan",MODE_PRIVATE);
-        int targetStep = settings.getInt("targetStepDay",0);
-        
+        setUpTarget();
         if(!isMyServiceRunning(SensorService.class))
             onStartService();
 
+    }
+
+    public void setUpTarget()
+    {
+        SharedPreferences settings = getSharedPreferences("fitness_plan",MODE_PRIVATE);
+        int targetStep = settings.getInt("targetStepDay",0);
+        hasRemainingStep = false;
+        if(targetStep!=0)
+        {
+            fitnessButton.setVisibility(View.INVISIBLE);
+            int remainingStep = targetStep - stepCounter;
+            if(remainingStep>0) {
+                targetText.setText("Today Remaining Step: " + remainingStep);
+                hasRemainingStep = true;
+            }
+            else
+                targetText.setText("Today Target Reached! Keep It On!");
+        }
+        else
+        {
+            targetText.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    public void openFitnessPlan(View view)
+    {
+        switchIntent(FitnessActivity.class);
+    }
+
+    public void openStepRecord(View view)
+    {
+        switchIntent(StepRecordActivity.class);
     }
 
     public void onStartService() {
@@ -154,6 +190,20 @@ public class MainActivity extends Activity implements SensorEventListener{
             Bundle bundle = intent.getExtras();
             stepCounter = bundle.getInt("stepCounter");
             stepText.setText(String.valueOf(stepCounter));
+            if(hasRemainingStep)
+            {
+                SharedPreferences settings = getSharedPreferences("fitness_plan",MODE_PRIVATE);
+                int targetStep = settings.getInt("targetStepDay", 0);
+                int remainingStep = targetStep - stepCounter;
+                if(remainingStep>0) {
+                    targetText.setText("Today Remaining Step: " + remainingStep);
+
+                }
+                else {
+                    targetText.setText("Today Target Reached! Keep It On!");
+                    hasRemainingStep = false;
+                }
+            }
         }
     }
 
