@@ -70,7 +70,7 @@ public class SensorService extends Service implements SensorEventListener {
         } else {
             Toast.makeText(this, "Counter Not available", Toast.LENGTH_SHORT).show();
         }
-        myTimer.scheduleAtFixedRate(myTimerStore,0,900000);
+        myTimer.scheduleAtFixedRate(myTimerStore,0,900000);//update db each 15 minutes if there is a change.
         return super.onStartCommand(intent, flags, startId);
     }
 
@@ -137,12 +137,14 @@ public class SensorService extends Service implements SensorEventListener {
             }
             else
             {
-                ContentValues upValues = new ContentValues();
-                upValues.put(StepEntry.COLUMN_NAME_Step, stepCounter);
-                String[] argsUpdate = {getDate()};
-                dbHelper.updateStep(upValues,argsUpdate,context);
+                if(dbStep!=stepCounter) //has value changed, if no change, no update.
+                {
+                    ContentValues upValues = new ContentValues();
+                    upValues.put(StepEntry.COLUMN_NAME_Step, stepCounter);
+                    String[] argsUpdate = {getDate()};
+                    dbHelper.updateStep(upValues, argsUpdate, context);
+                }
             }
-
         }
     }
 }

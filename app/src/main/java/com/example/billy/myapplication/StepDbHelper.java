@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -60,14 +61,36 @@ public class StepDbHelper extends SQLiteOpenHelper {
     {
         StepDbHelper dbHelper = new StepDbHelper(context);
         SQLiteDatabase dbWrite = dbHelper.getWritableDatabase();
-        dbWrite.insert(StepEntry.TABLE_NAME, null, values);
+        dbWrite.beginTransaction();
+        try {
+            dbWrite.insert(StepEntry.TABLE_NAME, null, values);
+            dbWrite.setTransactionSuccessful();
+        }catch (Exception e)
+        {
+            Toast.makeText(context,"Database store error, please contact the system admin",Toast.LENGTH_SHORT);
+            return;
+        }finally {
+            dbWrite.endTransaction();
+        }
     }
 
     public void updateStep(ContentValues values,String[] args,Context context)
     {
         StepDbHelper dbHelper = new StepDbHelper(context);
         SQLiteDatabase dbWrite = dbHelper.getWritableDatabase();
-        dbWrite.update(StepEntry.TABLE_NAME, values, StepEntry.COLUMN_NAME_Date + "=?", args);
+        dbWrite.beginTransaction();
+        try {
+            dbWrite.update(StepEntry.TABLE_NAME, values, StepEntry.COLUMN_NAME_Date + "=?", args);
+            dbWrite.setTransactionSuccessful();
+
+        }catch(Exception e)
+        {
+            Toast.makeText(context,"Database store error, please contact the system admin",Toast.LENGTH_SHORT);
+            return;
+        }
+        finally {
+            dbWrite.endTransaction();
+        }
     }
 
     public ArrayList<Step> getAllStepRecord(Context context)
