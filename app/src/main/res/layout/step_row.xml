@@ -7,17 +7,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/step_record_title_date"
+        android:text="text_date"
         android:id="@+id/text_date"
         android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:singleLine="false" />
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/step_record_title_text"
+        android:text="Large Text"
         android:id="@+id/text_step"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
