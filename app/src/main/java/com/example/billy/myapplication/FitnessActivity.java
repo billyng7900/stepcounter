@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -27,10 +29,10 @@ public class FitnessActivity extends Activity {
         settings = getSharedPreferences("fitness_plan", MODE_PRIVATE);
 //test value//
         SharedPreferences.Editor editor = settings.edit();
-        editor.putFloat("height", 1.65f);
-        editor.putFloat("weight", 60);
+        editor.putFloat("height", 1.55f);
+        editor.putFloat("weight",63);
         editor.putInt("targetTotal", 0);
-        editor.putInt("targetStepDay",0);
+        editor.putInt("targetStepDay", 0);
         editor.putString("startDate", "test");
         editor.commit();
 //test value//
@@ -38,7 +40,7 @@ public class FitnessActivity extends Activity {
         height = settings.getFloat("height", 0.00f);
         weight = settings.getFloat("weight", 0.00f);
         target = settings.getInt("targetTotal", 0);
-        targetStepDay = settings.getInt("targetStepDay",0);
+        targetStepDay = settings.getInt("targetStepDay", 0);
         startDate = settings.getString("startDate", "ERROR");
 
         fitness = new FitnessPlan(height, weight);
@@ -60,16 +62,48 @@ public class FitnessActivity extends Activity {
         editor.putFloat("height", fitness.getHeight());
         editor.putFloat("weight", fitness.getWeight());
         editor.putInt("targetTotal", fitness.getTargetStep());
-        editor.putInt("targetStepDay",fitness.getHealthyStyle());
+        editor.putInt("targetStepDay", fitness.getHealthyStyle());
         editor.putString("startDate", fitness.getDate());
         editor.commit();
 
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+        switchIntent(DailyFitnessActivity.class);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
     }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_step_record) {
+            switchIntent(StepRecordActivity.class);
+        }
+        else if(id==R.id.action_fitness) {
+            switchIntent(FitnessActivity.class);
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void switchIntent(Class<?> activityClass)
+    {
+        Intent intent = new Intent(this,activityClass);
+        startActivity(intent);
+    }
+
 }

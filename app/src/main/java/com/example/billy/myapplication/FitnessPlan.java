@@ -20,6 +20,7 @@ public class FitnessPlan {
         weight = w;
         BMI_value = 0.00f;
         targetStep = 0;
+        getBMI();
     }
 
     public float getHeight() {
@@ -39,16 +40,16 @@ public class FitnessPlan {
         String BMI_status = "";
         getBMI();
 
-        if(BMI_value < 18.5){
+        if(getBMI() < 18.5){
             BMI_status = "Underweight";
         }
-        if(BMI_value >= 18.5 && BMI_value < 25){
+        if(getBMI() >= 18.5 && BMI_value < 25){
             BMI_status = "Healthy Weight";
         }
-        if(BMI_value >=25 && BMI_value < 30){
+        if(getBMI() >=25 && BMI_value < 30){
             BMI_status = "Overweight";
         }
-        if(BMI_value >= 30){
+        if(getBMI() >= 30){
             BMI_status = "Obese";
         }
         return BMI_status;
@@ -80,7 +81,7 @@ public class FitnessPlan {
     }
 
     public int getTargetStep(){
-        if(BMI_value>=25) {
+        if(getBMI()>=25) {
             float targetCalBurn = (weight - (int) getSuggestedWeight(21)) * calPerKg;
             targetStep = (int) (targetCalBurn / stepCal);
         }
@@ -88,7 +89,7 @@ public class FitnessPlan {
     }
 
     public int getHealthyStyle(){
-        if(BMI_value>=25){
+        if(getBMI()>=25){
             return 10000;
         }else{
             return 6000;

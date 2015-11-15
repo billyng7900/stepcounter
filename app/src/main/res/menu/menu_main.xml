@@ -6,4 +6,7 @@
     <item android:id="@+id/action_fitness" android:title="Start New Fitness Plan"
         android:orderInCategory="100" android:showAsAction="never">
     </item>
+    <item android:id="@+id/action_daily_fitness" android:title="View My Fitness Plan"
+        android:orderInCategory="100" android:showAsAction="never">
+    </item>
 </menu>
