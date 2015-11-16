@@ -30,6 +30,8 @@ public class UserInfoActivity extends Activity {
     AlertDialog.Builder adb;
     boolean isComplete;
     TextView alertText;
+    Activity activity;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +42,7 @@ public class UserInfoActivity extends Activity {
         heightInput = (EditText) findViewById(R.id.userHeightInput);
         weightInput = (EditText) findViewById(R.id.userWeightInput);
         ageInput = (TextView)findViewById(R.id.userAgeInput);
+        activity = this;
         alertText = new TextView(this);
         adb = new AlertDialog.Builder(this);
         adb.setView(alertText);
@@ -61,6 +64,7 @@ public class UserInfoActivity extends Activity {
                     editor.putInt("age", age);
                     editor.putString("gender", gender);
                     editor.commit();
+                    activity.finish();
                 }
             }
         });
@@ -72,7 +76,7 @@ public class UserInfoActivity extends Activity {
         String nameText = userName.getText().toString().trim();
         String heightText = heightInput.getText().toString().trim();
         String weightText = weightInput.getText().toString().trim();
-        if(heightText.equals("")||weightText.equals("")||name.equals(""))
+        if(heightText.equals("")||weightText.equals("")||nameText.equals(""))
         {
             isComplete = false;
             alertText.setText("The information is not completed.");
