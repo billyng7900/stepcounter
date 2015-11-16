@@ -26,6 +26,8 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 
 public class StepChartActivity extends Activity implements OnChartGestureListener, OnChartValueSelectedListener{
@@ -183,7 +185,12 @@ public class StepChartActivity extends Activity implements OnChartGestureListene
         {
 
         }
-
+        Collections.sort(stepList, new Comparator<Step>() {
+            @Override
+            public int compare(Step lhs, Step rhs) {
+                return (lhs).getConvertToDate().compareTo(rhs.getConvertToDate());
+            }
+        });
         for(Step s:stepList)
         {
             int result = finalDate.compareTo(s.getConvertToDate());
