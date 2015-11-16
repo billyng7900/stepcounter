@@ -24,4 +24,5 @@ dependencies {
     compile files('libs/mpandroidchartlibrary-2-1-6.jar')
     compile files('src/libs/mpandroidchartlibrary-2-1-6.jar')
     compile files('src/main/java/com/example/billy/myapplication/mpandroidchartlibrary-2-1-6.jar')
+    compile files('src/main/mpandroidchartlibrary-2-1-6.jar')
 }
