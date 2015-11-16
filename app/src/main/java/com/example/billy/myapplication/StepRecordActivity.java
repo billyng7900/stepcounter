@@ -1,5 +1,6 @@
 package com.example.billy.myapplication;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.ActionMode;
@@ -19,6 +20,9 @@ public class StepRecordActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step_record);
+        ActionBar ab = getActionBar();
+        getActionBar().setDisplayHomeAsUpEnabled(true);
+
         stepList = new ArrayList<>();
         dbHelper = new StepDbHelper(this);
         stepList = dbHelper.getAllStepRecord(this);
@@ -57,7 +61,7 @@ public class StepRecordActivity extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_step_record, menu);
+        getMenuInflater().inflate(R.menu.menu_subclass, menu);
         return true;
     }
 
@@ -68,8 +72,8 @@ public class StepRecordActivity extends Activity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if(id == android.R.id.home){
+            finish();
             return true;
         }
 

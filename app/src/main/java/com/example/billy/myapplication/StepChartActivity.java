@@ -87,7 +87,7 @@ public class StepChartActivity extends Activity implements OnChartGestureListene
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_step_chart_activity, menu);
+        getMenuInflater().inflate(R.menu.menu_subclass, menu);
         return true;
     }
 
@@ -98,11 +98,10 @@ public class StepChartActivity extends Activity implements OnChartGestureListene
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if(id == android.R.id.home){
+            finish();
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 

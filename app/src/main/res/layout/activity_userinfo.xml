@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:weightSum="1"
     android:background="@color/bg_color">
@@ -10,10 +10,12 @@
         android:layout_height="wrap_content"
         android:columnCount="3"
         android:rowCount="8"
+        android:layout_gravity="center_horizontal"
         android:background="@drawable/layout_rectangle"
-        android:padding="3dp"
-        android:layout_margin="10dp">
-
+        android:padding="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="20dp" >
 
         <TextView
             android:layout_width="wrap_content"

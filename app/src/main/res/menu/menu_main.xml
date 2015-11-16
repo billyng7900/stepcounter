@@ -4,15 +4,15 @@
         android:orderInCategory="100" android:showAsAction="always"
         android:icon="@drawable/view_step_record">
         </item>
-    <item android:id="@+id/action_fitness" android:title="Start New Fitness Plan"
+    <item android:id="@+id/action_fitness" android:title="@string/menu_new_fitness"
         android:orderInCategory="100" android:showAsAction="always"
         android:icon="@drawable/new_fitness_plan">
     </item>
-    <item android:id="@+id/action_daily_fitness" android:title="View My Fitness Plan"
+    <item android:id="@+id/action_daily_fitness" android:title="@string/menu_fitness"
         android:orderInCategory="100" android:showAsAction="always"
         android:icon="@drawable/fitness_plan">
     </item>
-    <item android:id="@+id/action_add_user_info" android:title="Settings"
+    <item android:id="@+id/action_add_user_info" android:title="@string/action_settings"
         android:orderInCategory="100" android:showAsAction="always"
         android:icon="@drawable/settings">
     </item>
