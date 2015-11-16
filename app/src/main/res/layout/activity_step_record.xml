@@ -28,7 +28,7 @@
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="@string/step_record_title_date"
                 android:id="@+id/textView2"
-                android:layout_weight="0.75" />
+                android:layout_weight="0.63" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -36,7 +36,7 @@
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="@string/step_record_title_text"
                 android:id="@+id/textView3"
-                android:layout_weight="0.09" />
+                android:layout_weight="0.18" />
         </LinearLayout>
 
         <ListView
