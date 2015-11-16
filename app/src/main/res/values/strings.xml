@@ -14,8 +14,8 @@
     <string name="name_Label">Name:</string>
     <string name="gender_Label">Gender:</string>
     <string name="age_Label">Age:</string>
-    <string name="height_Label">Height:</string>
-    <string name="weight_Label">Weight:</string>
+    <string name="height_Label">Height(m):</string>
+    <string name="weight_Label">Weight(kg):</string>
     <string name="save_user_info_button">Save</string>
     <string name="set_button">Set</string>
     <string name="cancelButton">Cancel</string>
