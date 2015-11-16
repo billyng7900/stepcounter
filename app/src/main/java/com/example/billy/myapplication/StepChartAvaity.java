@@ -4,8 +4,13 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.SeekBar;
+import android.widget.TextView;
+
+import com.github.mikephil.charting.charts.LineChart;
 
 public class StepChartAvaity extends Activity {
+    private LineChart mChart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
