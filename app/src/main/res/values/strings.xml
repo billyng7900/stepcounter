@@ -2,9 +2,12 @@
     <string name="app_name">My Application</string>
 
     <string name="hello_world">Hello world!</string>
+
     <string name="action_settings">Settings</string>
     <string name="action_step_record">Steps Record</string>
     <string name="action_fitness">fitness</string>
+    <string name="action_info">Information</string>
+
     <string name="step_message">Current Step Today: </string>
     <string name="title_activity_step_record">StepRecordActivity</string>
     <string name="step_record_title_date">Date</string>
@@ -20,4 +23,9 @@
     <string name="set_button">Set</string>
     <string name="cancelButton">Cancel</string>
     <string name="title_activity_step_chart_avaity">StepChartAvaity</string>
+
+    <string name="menu_back">Back</string>
+    <string name="menu_fitness">Start New Fitness Plan</string>
+    <string name="menu_new_fitness">View My Fitness Plan</string>
+
 </resources>

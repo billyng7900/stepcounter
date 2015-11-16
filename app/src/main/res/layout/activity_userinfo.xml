@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:weightSum="1"
     android:background="@color/bg_color">
@@ -10,10 +10,12 @@
         android:layout_height="wrap_content"
         android:columnCount="3"
         android:rowCount="8"
+        android:layout_gravity="center_horizontal"
         android:background="@drawable/layout_rectangle"
-        android:padding="3dp"
-        android:layout_margin="10dp">
-
+        android:padding="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="20dp" >
 
         <TextView
             android:layout_width="wrap_content"
@@ -60,27 +62,25 @@
             android:layout_row="3"
             android:layout_column="1"
             android:orientation="horizontal"
-            android:id="@+id/genderRadioGroup">
+            android:id="@+id/genderRadioGroup"
+            android:measureWithLargestChild="true"
+            android:layout_gravity="left">
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="25dp"
                 android:text="M"
                 android:id="@+id/maleRadioButton"
-                android:layout_gravity="right"
-                android:checked="true"
                 android:onClick="selectGender"
-                android:width="80dp"
-                android:height="10dp"/>
+                android:textSize="12dp" />
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="25dp"
                 android:text="F"
-
                 android:id="@+id/famaleRadioButton"
-                android:checked="false"
-                android:onClick="selectGender" />
+                android:onClick="selectGender"
+                android:textSize="12dp" />
         </RadioGroup>
 
         <TextView
@@ -91,7 +91,8 @@
             android:layout_row="4"
             android:layout_column="0"
             android:textStyle="bold"
-            android:textSize="16dp" />
+            android:textSize="16dp"
+            android:layout_marginTop="10dp"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -101,7 +102,8 @@
             android:layout_row="4"
             android:layout_column="1"
             android:textSize="16dp"
-            android:layout_marginLeft="10dp" />
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"/>
 
         <TextView
             android:layout_width="wrap_content"

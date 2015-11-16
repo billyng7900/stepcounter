@@ -82,11 +82,43 @@ public class DailyFitnessActivity extends Activity {
         super.onStop();
     }
 
-    /*private void switchIntent(Class<?> activityClass)
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_step_record) {
+            switchIntent(StepRecordActivity.class);
+        }
+        else if(id==R.id.action_fitness)
+        {
+            switchIntent(FitnessActivity.class);
+        }
+        else if (id==R.id.action_daily_fitness)
+        {
+            switchIntent(DailyFitnessActivity.class);
+        }
+        else if(id==R.id.action_add_user_info)
+        {
+            switchIntent(UserInfoActivity.class);
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void switchIntent(Class<?> activityClass)
     {
         Intent intent = new Intent(this,activityClass);
         startActivity(intent);
     }
-    */
 
 }

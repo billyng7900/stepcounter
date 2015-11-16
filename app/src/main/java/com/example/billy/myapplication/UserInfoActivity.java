@@ -1,4 +1,5 @@
 package com.example.billy.myapplication;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -8,6 +9,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -37,6 +40,9 @@ public class UserInfoActivity extends Activity implements NumberPicker.OnValueCh
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_userinfo);
+        ActionBar ab = getActionBar();
+        getActionBar().setDisplayHomeAsUpEnabled(true);
+
         userName = (EditText)findViewById(R.id.userNameInput);
         heightInput = (EditText)findViewById(R.id.userHeightInput);
         weightInput = (EditText)findViewById(R.id.userWeightInput);
@@ -152,8 +158,28 @@ public class UserInfoActivity extends Activity implements NumberPicker.OnValueCh
             }
         });
         d.show();
+    }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_subclass, menu);
+        return true;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        if(id == android.R.id.home){
+            finish();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }
 
