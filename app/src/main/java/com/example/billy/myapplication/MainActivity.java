@@ -45,6 +45,8 @@ public class MainActivity extends Activity implements SensorEventListener{
         settings = getSharedPreferences("fitness_plan",MODE_PRIVATE);
         if(settings.getFloat("height",0)==0)
             hasEnteredRecord = false;
+        else
+            hasEnteredRecord = true;
         //get DB data
         dbHelper = new StepDbHelper(this);
         String[] args = {getDate()};

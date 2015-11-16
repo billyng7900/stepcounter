@@ -22,8 +22,9 @@
     <string name="save_user_info_button">Save</string>
     <string name="set_button">Set</string>
     <string name="cancelButton">Cancel</string>
-    <string name="title_activity_step_chart_avaity">StepChartAvaity</string>
+    <string name="title_activity_step_chart_activity">StepChartActivity</string>
 
+    <string name="title_activity_view_info_activity">ViewActivity</string>
     <string name="menu_back">Back</string>
     <string name="menu_fitness">Start New Fitness Plan</string>
     <string name="menu_new_fitness">View My Fitness Plan</string>
