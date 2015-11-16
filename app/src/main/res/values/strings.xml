@@ -11,4 +11,12 @@
     <string name="step_record_title_text">Step</string>
     <string name="main_button">View Step Record</string>
     <string name="main_set_plan">Set Fitness Plan Now!</string>
+    <string name="name_Label">Name:</string>
+    <string name="gender_Label">Gender:</string>
+    <string name="age_Label">Age:</string>
+    <string name="height_Label">Height:</string>
+    <string name="weight_Label">Weight:</string>
+    <string name="save_user_info_button">Save</string>
+    <string name="set_button">Set</string>
+    <string name="cancelButton">Cancel</string>
 </resources>
