@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.ContentValues;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -28,7 +27,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
 
 public class StepChartActivity extends Activity implements OnChartGestureListener, OnChartValueSelectedListener{
     private LineChart lineChart;
@@ -39,7 +37,7 @@ public class StepChartActivity extends Activity implements OnChartGestureListene
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_step_chart_avaity);
+        setContentView(R.layout.activity_step_chart_activity);
         lineChart = (LineChart)findViewById(R.id.chart);
         dbHelper = new StepDbHelper(this);
         settings = getSharedPreferences("fitness_plan", MODE_PRIVATE);
@@ -87,7 +85,7 @@ public class StepChartActivity extends Activity implements OnChartGestureListene
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_step_chart_avaity, menu);
+        getMenuInflater().inflate(R.menu.menu_step_chart_activity, menu);
         return true;
     }
 
