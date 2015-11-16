@@ -1,5 +1,6 @@
 package com.example.billy.myapplication;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -40,8 +41,10 @@ public class ViewActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view);
+        ActionBar ab = getActionBar();
+        getActionBar().setDisplayHomeAsUpEnabled(true);
 
-       settings = getSharedPreferences("user_info", MODE_PRIVATE);
+        settings = getSharedPreferences("user_info", MODE_PRIVATE);
 
         name = settings.getString("name", "");
         age = settings.getInt("age", 1);

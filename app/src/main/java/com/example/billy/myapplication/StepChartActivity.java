@@ -1,5 +1,6 @@
 package com.example.billy.myapplication;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.SharedPreferences;
@@ -40,6 +41,9 @@ public class StepChartActivity extends Activity implements OnChartGestureListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step_chart_activity);
+        ActionBar ab = getActionBar();
+        getActionBar().setDisplayHomeAsUpEnabled(true);
+
         lineChart = (LineChart)findViewById(R.id.chart);
         dbHelper = new StepDbHelper(this);
         settings = getSharedPreferences("fitness_plan", MODE_PRIVATE);
