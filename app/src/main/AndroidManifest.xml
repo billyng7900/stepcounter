@@ -8,7 +8,7 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="Step Counter"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme" >
         <activity
             android:name=".MainActivity"
             android:label="Step Counter" >
@@ -28,15 +28,19 @@
 
         <activity
             android:name=".StepRecordActivity"
-            android:label="Step Record"
-            android:exported="true">
+            android:exported="true"
+            android:label="Step Record" >
         </activity>
         <activity
             android:name=".DailyFitnessActivity"
-            android:label="Daily Fitness Plan"/>
-        <activity android:name=".UserInfoActivity" android:label="User Info"/>
-        <activity android:name=".ViewActivity" />
-
+            android:label="Daily Fitness Plan" />
+        <activity
+            android:name=".UserInfoActivity"
+            android:label="User Info" />
+        <activity
+            android:name=".StepChartAvaity"
+            android:label="@string/title_activity_step_chart_avaity" >
+        </activity>
     </application>
 
 </manifest>

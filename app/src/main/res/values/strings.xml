@@ -19,4 +19,5 @@
     <string name="save_user_info_button">Save</string>
     <string name="set_button">Set</string>
     <string name="cancelButton">Cancel</string>
+    <string name="title_activity_step_chart_avaity">StepChartAvaity</string>
 </resources>
