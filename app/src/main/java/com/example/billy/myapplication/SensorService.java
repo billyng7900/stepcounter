@@ -2,6 +2,9 @@ package com.example.billy.myapplication;
 
 import android.app.Activity;
 import android.app.IntentService;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.ContentValues;
 import android.content.Context;
@@ -59,6 +62,7 @@ public class SensorService extends Service implements SensorEventListener {
     public int onStartCommand(Intent intent, int flags, int startId) {
         String[] args = {getDate()};
         int dbStep = dbHelper.getDbStep(args, context);
+        setUpNotification();
         if(dbStep!=-1)
             stepCounter = dbStep;
         else
@@ -82,7 +86,7 @@ public class SensorService extends Service implements SensorEventListener {
         currentY = y;
 
         float resulty = Math.abs(currentY - previousY);
-        if(resulty>threshold&&resulty<30)
+        if(resulty>threshold&&resulty<10)
         {
             stepCounter++;
             //Toast.makeText(this,"AAAAA"+stepCounter,Toast.LENGTH_SHORT).show();
@@ -116,6 +120,21 @@ public class SensorService extends Service implements SensorEventListener {
         return dateFormat.format(date);
     }
 
+    private void setUpNotification()
+    {
+        Notification.Builder nBuilder = new Notification.Builder(this);
+        nBuilder.setSmallIcon(R.drawable.view_record);
+        nBuilder.setContentTitle("Notification Test");
+        nBuilder.setContentText("This is a notification.");
+        nBuilder.setAutoCancel(true);
+        nBuilder.setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE);
+        Intent nIntent = new Intent(this, MainActivity.class);
+        nIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, nIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        nBuilder.setContentIntent(pendingIntent);
+        NotificationManager nManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        nManager.notify(0, nBuilder.build());
+    }
     private class MyTimerStore extends TimerTask
     {
         @Override

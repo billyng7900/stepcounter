@@ -34,6 +34,8 @@
         <activity
             android:name=".DailyFitnessActivity"
             android:label="Daily Fitness Plan"/>
+        <activity android:name=".UserInfoActivity" android:label="User Info"/>
+
     </application>
 
 </manifest>

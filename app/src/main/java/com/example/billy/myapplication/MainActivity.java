@@ -151,7 +151,10 @@ public class MainActivity extends Activity implements SensorEventListener{
         {
             switchIntent(DailyFitnessActivity.class);
         }
-
+        else if(id==R.id.action_add_user_info)
+        {
+            switchIntent(UserInfoActivity.class);
+        }
         return super.onOptionsItemSelected(item);
     }
 

@@ -12,4 +12,7 @@
         android:orderInCategory="100" android:showAsAction="always"
         android:icon="@drawable/fitness_plan">
     </item>
+    <item android:id="@+id/action_add_user_info" android:title="Add My Information"
+        android:orderInCategory="100" android:showAsAction="never">
+    </item>
 </menu>
