@@ -90,5 +90,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="mpandroidchartlibrary-2-1-6" level="project" />
     <orderEntry type="library" exported="" name="1_mpandroidchartlibrary-2-1-6" level="project" />
+    <orderEntry type="library" exported="" name="2_mpandroidchartlibrary-2-1-6" level="project" />
   </component>
 </module>

@@ -15,6 +15,7 @@ public class StepChartActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step_chart_avaity);
+        mChart = (LineChart)findViewById(R.id.chart);
     }
 
     @Override
