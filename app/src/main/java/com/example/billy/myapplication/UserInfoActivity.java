@@ -1,25 +1,25 @@
 package com.example.billy.myapplication;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.DialogPreference;
-import android.test.suitebuilder.annotation.LargeTest;
-import android.test.suitebuilder.annotation.MediumTest;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.NumberPicker;
 import android.widget.RadioButton;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.Toolbar;
+import android.view.View.OnClickListener;
 
 /**
  * Created by NgChau on 16/11/2015.
  */
-public class UserInfoActivity extends Activity {
+public class UserInfoActivity extends Activity implements NumberPicker.OnValueChangeListener{
     EditText userName, heightInput, weightInput;
     TextView ageInput;
     Float height, weight;
@@ -32,6 +32,7 @@ public class UserInfoActivity extends Activity {
     TextView alertText;
     Activity activity;
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +43,13 @@ public class UserInfoActivity extends Activity {
         heightInput = (EditText) findViewById(R.id.userHeightInput);
         weightInput = (EditText) findViewById(R.id.userWeightInput);
         ageInput = (TextView)findViewById(R.id.userAgeInput);
+        ageInput.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                showAge();
+            }
+        });
         activity = this;
         alertText = new TextView(this);
         adb = new AlertDialog.Builder(this);
@@ -109,6 +117,43 @@ public class UserInfoActivity extends Activity {
                 else{gender="F";}
                 break;
         }
+    }
+
+    @Override
+    public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+        Log.i("value is", "" + newVal);
+
+    }
+
+    public void showAge()
+    {
+
+        final Dialog d = new Dialog(UserInfoActivity.this);
+        d.setTitle("Age");
+        d.setContentView(R.layout.ageselector);
+        Button set = (Button) d.findViewById(R.id.setButton);
+        Button cancel = (Button) d.findViewById(R.id.cancelButton);
+        final NumberPicker picker = (NumberPicker) d.findViewById(R.id.agePicker);
+        picker.setMaxValue(99);
+        picker.setMinValue(12);
+        picker.setWrapSelectorWheel(false);
+        picker.setOnValueChangedListener(this);
+        set.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ageInput.setText(String.valueOf(picker.getValue()));
+                d.dismiss();
+            }
+        });
+        cancel.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                d.dismiss();
+            }
+        });
+        d.show();
+
+
     }
 }
 
