@@ -4,13 +4,17 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="com.example.billy.myapplication.StepRecordActivity">
+    tools:context="com.example.billy.myapplication.StepRecordActivity"
+    android:background="@color/bg_color">
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:weightSum="1">
+        android:weightSum="1"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/layout_rectangle"
+        android:padding="20dp">
 
         <LinearLayout
             android:orientation="horizontal"

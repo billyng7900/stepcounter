@@ -39,6 +39,8 @@ public class FitnessActivity extends Activity {
         tv_step.setText("Healthy Life Style: " + fitness.getHealthyStyle() + " Steps");
         if(fitness.getBMI()>=25) {
             tv_target.setText("Target Days: " + (fitness.getTargetStep() / 10000));
+        }else{
+            tv_target.setVisibility(View.INVISIBLE);
         }
     }
 
