@@ -97,6 +97,11 @@ public class MainActivity extends Activity implements SensorEventListener{
         switchIntent(StepRecordActivity.class);
     }
 
+    public void openStepChart(View view)
+    {
+        switchIntent(StepChartAvaity.class);
+    }
+
     public void onStartService() {
         Intent i = new Intent(this,SensorService.class);
         startService(i);
