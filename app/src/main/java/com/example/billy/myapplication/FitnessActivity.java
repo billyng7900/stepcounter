@@ -17,31 +17,16 @@ public class FitnessActivity extends Activity {
     TextView tv_BMI, tv_sweight, tv_step, tv_target;
     public FitnessPlan fitness;
     Float height, weight;
-    int targetTotal,targetStepDay;
-    String startDate;
-    SharedPreferences settings;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inifitness);
 
-        settings = getSharedPreferences("fitness_plan", MODE_PRIVATE);
-//test value//
-        SharedPreferences.Editor editor = settings.edit();
-        editor.putFloat("height", 1.55f);
-        editor.putFloat("weight",63);
-        editor.putInt("targetTotal", 0);
-        editor.putInt("targetStepDay", 0);
-        editor.putString("startDate", "test");
-        editor.commit();
-//test value//
+        SharedPreferences settings = getSharedPreferences("user_info", MODE_PRIVATE);
 
         height = settings.getFloat("height", 0.00f);
         weight = settings.getFloat("weight", 0.00f);
-        targetTotal = settings.getInt("targetTotal", 0);
-        targetStepDay = settings.getInt("targetStepDay", 0);
-        startDate = settings.getString("startDate", "ERROR");
 
         fitness = new FitnessPlan(height, weight);
 
@@ -58,6 +43,7 @@ public class FitnessActivity extends Activity {
     }
 
     public void onPlanStart(View v){
+        SharedPreferences settings = getSharedPreferences("fitness_plan", MODE_PRIVATE);
         SharedPreferences.Editor editor = settings.edit();
         editor.putFloat("height", fitness.getHeight());
         editor.putFloat("weight", fitness.getWeight());
