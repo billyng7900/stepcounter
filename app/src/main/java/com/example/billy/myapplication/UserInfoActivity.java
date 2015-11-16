@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -34,7 +35,7 @@ public class UserInfoActivity extends Activity implements NumberPicker.OnValueCh
     boolean isComplete;
     TextView alertText;
     Activity activity;
-
+    Button dialogButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -57,15 +58,17 @@ public class UserInfoActivity extends Activity implements NumberPicker.OnValueCh
             }
         });
         activity = this;
-        alertText = new TextView(this);
+
         adb = new AlertDialog.Builder(this);
-        adb.setView(alertText);
-        adb.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        LayoutInflater inflater = this.getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.alertdialog_notify,null);
+        adb.setView(dialogView);
+        alertText = (TextView)dialogView.findViewById(R.id.text_message);
+        dialogButton = (Button)dialogView.findViewById(R.id.button_dialog_confirm);
+        dialogButton.setOnClickListener(new OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
-                if (!isComplete) {
-                    alertText.setText("The information is not complete");
-                } else {
+            public void onClick(View v) {
+                if(isComplete) {
                     name = userName.getText().toString();
                     height = Float.valueOf(heightInput.getText().toString());
                     weight = Float.valueOf(weightInput.getText().toString());
@@ -78,7 +81,12 @@ public class UserInfoActivity extends Activity implements NumberPicker.OnValueCh
                     editor.putInt("age", age);
                     editor.putString("gender", gender);
                     editor.commit();
+                    alertDialog.dismiss();
                     activity.finish();
+                }
+                else
+                {
+                    alertDialog.dismiss();
                 }
             }
         });
