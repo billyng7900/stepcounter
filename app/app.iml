@@ -89,5 +89,6 @@
     <orderEntry type="jdk" jdkName="Android API 23 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="mpandroidchartlibrary-2-1-6" level="project" />
+    <orderEntry type="library" exported="" name="1_mpandroidchartlibrary-2-1-6" level="project" />
   </component>
 </module>
