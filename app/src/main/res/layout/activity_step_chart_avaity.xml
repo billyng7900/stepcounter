@@ -3,7 +3,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.billy.myapplication.StepChartAvaity"
+    tools:context="com.example.billy.myapplication.StepChartActivity"
     android:weightSum="1">
 
     <com.github.mikephil.charting.charts.LineChart

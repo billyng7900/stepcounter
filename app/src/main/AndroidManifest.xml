@@ -38,7 +38,7 @@
             android:name=".UserInfoActivity"
             android:label="User Info" />
         <activity
-            android:name=".StepChartAvaity"
+            android:name=".StepChartActivity"
             android:label="@string/title_activity_step_chart_avaity" >
         </activity>
     </application>

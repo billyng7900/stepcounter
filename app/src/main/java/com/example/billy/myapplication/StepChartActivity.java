@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
 
-public class StepChartAvaity extends Activity {
+public class StepChartActivity extends Activity {
     private LineChart mChart;
 
     @Override

@@ -7,20 +7,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
-import android.hardware.SensorManager;
 import android.os.*;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -99,7 +94,7 @@ public class MainActivity extends Activity implements SensorEventListener{
 
     public void openStepChart(View view)
     {
-        switchIntent(StepChartAvaity.class);
+        switchIntent(StepChartActivity.class);
     }
 
     public void onStartService() {
