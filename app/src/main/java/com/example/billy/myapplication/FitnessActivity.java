@@ -34,7 +34,7 @@ public class FitnessActivity extends Activity {
         tv_sweight = (TextView)findViewById(R.id.tv_sweight);
         tv_step = (TextView)findViewById(R.id.tv_step);
         tv_target = (TextView)findViewById((R.id.tv_target));
-        tv_BMI.setText("BMI : " + String.format("%.1f",fitness.getBMI()) + "\n" + fitness.getBMIStatus());
+        tv_BMI.setText("BMI : " + String.format("%.1f", fitness.getBMI()) + "\n" + fitness.getBMIStatus());
         tv_sweight.setText(fitness.getSuggestedWeightPlan());
         tv_step.setText("Healthy Life Style: " + fitness.getHealthyStyle() + " Steps");
         if(fitness.getBMI()>=25) {
@@ -64,7 +64,7 @@ public class FitnessActivity extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_subclass, menu);
         return true;
     }
 
@@ -75,28 +75,11 @@ public class FitnessActivity extends Activity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_step_record) {
-            switchIntent(StepRecordActivity.class);
+        if(id == android.R.id.home){
+            finish();
+            return true;
         }
-        else if(id==R.id.action_fitness)
-        {
-            switchIntent(FitnessActivity.class);
-        }
-        else if (id==R.id.action_daily_fitness)
-        {
-            switchIntent(DailyFitnessActivity.class);
-        }
-        else if(id==R.id.action_add_user_info)
-        {
-            switchIntent(UserInfoActivity.class);
-        }
-        return super.onOptionsItemSelected(item);
-    }
 
-    private void switchIntent(Class<?> activityClass)
-    {
-        Intent intent = new Intent(this,activityClass);
-        startActivity(intent);
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -42,6 +42,8 @@ public class DailyFitnessActivity extends Activity {
         startDate = settings.getString("startDate", "ERROR");
 
         fitness = new FitnessPlan(height, weight);
+        fitness.setStartDate(startDate);
+        fitness.setAccumulatedStep(getStepRecord());
         stepArrayList = new ArrayList<>();
 
         tv_dailyStep = (TextView)findViewById(R.id.tv_dailyStep);
@@ -49,7 +51,13 @@ public class DailyFitnessActivity extends Activity {
 
         tv_dailyStep.setText("Target Steps for Today: " + fitness.getHealthyStyle());
         if(fitness.getBMI()>=25) {
-            tv_targetDays.setText("Target Days: " + (targetTotal-getStepRecord())/targetStepDay);
+            String s = "My Fitness Plan from: " + fitness.getStartDate()
+                    + "\nAccumulated Steps: " + fitness.getAccumulatedStep()
+                    + "\nTarget Steps: " + targetTotal
+                    + "\nTarget Days: " + (targetTotal-fitness.getAccumulatedStep())/targetStepDay;
+            tv_targetDays.setText(s);
+        }else{
+            tv_targetDays.setVisibility(View.INVISIBLE);
         }
     }
 
@@ -85,7 +93,7 @@ public class DailyFitnessActivity extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_subclass, menu);
         return true;
     }
 
@@ -96,29 +104,12 @@ public class DailyFitnessActivity extends Activity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_step_record) {
-            switchIntent(StepRecordActivity.class);
+        if(id == android.R.id.home){
+            finish();
+            return true;
         }
-        else if(id==R.id.action_fitness)
-        {
-            switchIntent(FitnessActivity.class);
-        }
-        else if (id==R.id.action_daily_fitness)
-        {
-            switchIntent(DailyFitnessActivity.class);
-        }
-        else if(id==R.id.action_add_user_info)
-        {
-            switchIntent(UserInfoActivity.class);
-        }
-        return super.onOptionsItemSelected(item);
-    }
 
-    private void switchIntent(Class<?> activityClass)
-    {
-        Intent intent = new Intent(this,activityClass);
-        startActivity(intent);
+        return super.onOptionsItemSelected(item);
     }
 
 }

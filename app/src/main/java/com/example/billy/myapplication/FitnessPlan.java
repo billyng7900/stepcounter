@@ -14,6 +14,8 @@ public class FitnessPlan {
     private float weight;
     private float BMI_value;
     private int targetStep;
+    private String startDate;
+    private int accumulatedStep;
 
     public FitnessPlan(Float h, Float w) {
         height = h;
@@ -94,6 +96,22 @@ public class FitnessPlan {
         }else{
             return 6000;
         }
+    }
+
+    public void setStartDate(String s){
+        startDate = s;
+    }
+
+    public String getStartDate(){
+        return startDate;
+    }
+
+    public void setAccumulatedStep(int i){
+        accumulatedStep = i;
+    }
+
+    public int getAccumulatedStep(){
+        return accumulatedStep;
     }
 
     public String getDate(){

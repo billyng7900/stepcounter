@@ -20,7 +20,7 @@
         </activity>
         <activity
             android:name=".FitnessActivity"
-            android:label="Fitness Plan" />
+            android:label="New Fitness Plan" />
 
         <service
             android:name=".SensorService"
@@ -33,16 +33,16 @@
         </activity>
         <activity
             android:name=".DailyFitnessActivity"
-            android:label="Daily Fitness Plan" />
+            android:label="My Fitness Plan" />
         <activity
             android:name=".UserInfoActivity"
-            android:label="User Info" />
+            android:label="User Information" />
         <activity
             android:name=".StepChartActivity"
-            android:label="@string/title_activity_step_chart_activity" >
+            android:label="Step Chart" >
         </activity>
         <activity android:name=".ViewActivity"
-            android:label="@string/title_activity_view_info_activity"></activity>
+            android:label="User Information"></activity>
     </application>
 
 </manifest>
