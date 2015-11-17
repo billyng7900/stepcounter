@@ -62,11 +62,12 @@ public class SensorService extends Service implements SensorEventListener {
     public int onStartCommand(Intent intent, int flags, int startId) {
         String[] args = {getDate()};
         int dbStep = dbHelper.getDbStep(args, context);
-        setUpNotification();
+
         if(dbStep!=-1)
             stepCounter = dbStep;
         else
             stepCounter = 0;
+        setUpNotification();
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         Sensor sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         if (sensor != null) {
@@ -122,18 +123,29 @@ public class SensorService extends Service implements SensorEventListener {
 
     private void setUpNotification()
     {
+        String msgText = "You have current walk for "
+                + stepCounter
+                + "steps now!" +
+                "xxx steps remaining. Keep going!";
         Notification.Builder nBuilder = new Notification.Builder(this);
         nBuilder.setSmallIcon(R.drawable.view_record);
-        nBuilder.setContentTitle("Notification Test");
-        nBuilder.setContentText("This is a notification.");
+        nBuilder.setContentTitle("Step Counter");
+        nBuilder.setContentText("Your step report for today.");
         nBuilder.setAutoCancel(true);
         nBuilder.setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE);
         Intent nIntent = new Intent(this, MainActivity.class);
         nIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, nIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        Intent intent1 = new Intent(this,FitnessActivity.class);
+        intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        PendingIntent pendingIntent1 = PendingIntent.getActivity(this, 0, intent1, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent2 = PendingIntent.getActivity(this, 0, new Intent(this,FitnessPlan.class), PendingIntent.FLAG_UPDATE_CURRENT);
         nBuilder.setContentIntent(pendingIntent);
+        nBuilder.addAction(R.drawable.view_notification,"Show",pendingIntent1);
+        nBuilder.addAction(R.drawable.view_step_record,"Review",pendingIntent2);
         NotificationManager nManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        nManager.notify(0, nBuilder.build());
+        Notification notification = new Notification.BigTextStyle(nBuilder).bigText(msgText).build();
+        nManager.notify(0, notification);
     }
     private class MyTimerStore extends TimerTask
     {
@@ -158,6 +170,7 @@ public class SensorService extends Service implements SensorEventListener {
             {
                 if(dbStep!=stepCounter) //has value changed, if no change, no update.
                 {
+
                     ContentValues upValues = new ContentValues();
                     upValues.put(StepEntry.COLUMN_NAME_Step, stepCounter);
                     String[] argsUpdate = {getDate()};
