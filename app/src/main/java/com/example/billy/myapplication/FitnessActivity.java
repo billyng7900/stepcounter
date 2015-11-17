@@ -25,26 +25,6 @@ public class FitnessActivity extends Activity {
         setContentView(R.layout.activity_inifitness);
         ActionBar ab = getActionBar();
         getActionBar().setDisplayHomeAsUpEnabled(true);
-
-        SharedPreferences settings = getSharedPreferences("user_info", MODE_PRIVATE);
-
-        height = settings.getFloat("height", 0.00f);
-        weight = settings.getFloat("weight", 0.00f);
-
-        fitness = new FitnessPlan(height, weight);
-
-        tv_BMI = (TextView)findViewById(R.id.tv_bmistatus);
-        tv_sweight = (TextView)findViewById(R.id.tv_sweight);
-        tv_step = (TextView)findViewById(R.id.tv_step);
-        tv_target = (TextView)findViewById((R.id.tv_target));
-        tv_BMI.setText("BMI : " + String.format("%.1f", fitness.getBMI()) + "\n" + fitness.getBMIStatus());
-        tv_sweight.setText(fitness.getSuggestedWeightPlan());
-        tv_step.setText("Healthy Life Style: " + fitness.getHealthyStyle() + " Steps");
-        if(fitness.getBMI()>=25) {
-            tv_target.setText("Target Days: " + (fitness.getTargetStep() / 10000));
-        }else{
-            tv_target.setVisibility(View.INVISIBLE);
-        }
     }
 
     public void onPlanStart(View v){
@@ -68,10 +48,27 @@ public class FitnessActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
+        SharedPreferences settings = getSharedPreferences("user_info", MODE_PRIVATE);
+        height = settings.getFloat("height", 0.00f);
+        weight = settings.getFloat("weight", 0.00f);
         if(height==0.00f || weight==0.00f){
             Intent intent = new Intent(this, UserInfoActivity.class);
             intent.putExtra("msg", "Please input your information.");
             startActivity(intent);
+        }
+        fitness = new FitnessPlan(height, weight);
+
+        tv_BMI = (TextView)findViewById(R.id.tv_bmistatus);
+        tv_sweight = (TextView)findViewById(R.id.tv_sweight);
+        tv_step = (TextView)findViewById(R.id.tv_step);
+        tv_target = (TextView)findViewById((R.id.tv_target));
+        tv_BMI.setText("BMI : " + String.format("%.1f", fitness.getBMI()) + "\n" + fitness.getBMIStatus());
+        tv_sweight.setText(fitness.getSuggestedWeightPlan());
+        tv_step.setText("Healthy Life Style: " + fitness.getHealthyStyle() + " Steps");
+        if(fitness.getBMI()>=25) {
+            tv_target.setText("Target Days: " + (fitness.getTargetStep() / 10000));
+        }else{
+            tv_target.setVisibility(View.INVISIBLE);
         }
     }
 
