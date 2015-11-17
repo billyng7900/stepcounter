@@ -1,12 +1,15 @@
 package com.example.billy.myapplication;
 
+import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.BroadcastReceiver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -16,7 +19,9 @@ import android.os.*;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -58,12 +63,13 @@ public class SensorService extends Service implements SensorEventListener {
         context = this;
         fixedBuilder = new Notification.Builder(this);
         reminderBuilder = new Notification.Builder(this);
-        settings = getSharedPreferences("user_info", MODE_PRIVATE);
+        settings = getSharedPreferences("fitness_plan", MODE_PRIVATE);
+        registerReceiver(ReminderNotification,new IntentFilter("com.billyng.MYACTION"));
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        targetStep = settings.getInt("",0);
+        targetStep = settings.getInt("targetStepDay",0);
         String[] args = {getDate()};
         int dbStep = dbHelper.getDbStep(args, context);
         if(dbStep!=-1)
@@ -79,6 +85,7 @@ public class SensorService extends Service implements SensorEventListener {
             Toast.makeText(this, "Counter Not available", Toast.LENGTH_SHORT).show();
         }
         myTimer.scheduleAtFixedRate(myTimerStore,0,900000);//update db each 15 minutes if there is a change.
+        setupReminder();
         return super.onStartCommand(intent, flags, startId);
     }
 
@@ -125,6 +132,19 @@ public class SensorService extends Service implements SensorEventListener {
         return dateFormat.format(date);
     }
 
+    private void setupReminder()
+    {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY,17);
+        calendar.set(Calendar.MINUTE,0);
+        calendar.set(Calendar.SECOND,0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        Intent reminderNotification = new Intent("com.billyng.MYACTION");
+        PendingIntent pi = PendingIntent.getBroadcast(this, 0, reminderNotification, PendingIntent.FLAG_UPDATE_CURRENT);
+        AlarmManager am = (AlarmManager) getSystemService(ALARM_SERVICE);
+        am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY,pi);
+
+    }
     private void setUpFixedNotification()
     {
         String msgText  = "Today step: "
@@ -132,7 +152,7 @@ public class SensorService extends Service implements SensorEventListener {
         if(targetStep>0)
         {
             msgText +="\nTarget step: " +
-                    "xxx.";
+                    targetStep;
         }
         else
         {
@@ -143,7 +163,6 @@ public class SensorService extends Service implements SensorEventListener {
         fixedBuilder.setContentTitle("Step Counter");
         fixedBuilder.setContentText("Your step record");
         fixedBuilder.setAutoCancel(true);
-        fixedBuilder.setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE);
         Intent nIntent = new Intent(this, MainActivity.class);
         nIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, nIntent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -159,28 +178,23 @@ public class SensorService extends Service implements SensorEventListener {
         fixedNotification.flags = Notification.FLAG_ONGOING_EVENT | Notification.FLAG_NO_CLEAR;
         nManager.notify(0, fixedNotification);
     }
-    private class MyTimerStore extends TimerTask
-    {
+    private class MyTimerStore extends TimerTask {
         @Override
         public void run() {
             boolean hasTodayData = false;
             String[] args = {getDate()};
             int dbStep = dbHelper.getDbStep(args, context);
-            if(dbStep!=-1)
-            {
+            if (dbStep != -1) {
                 hasTodayData = true;
             }
-            if(!hasTodayData)
-            {
+            if (!hasTodayData) {
                 stepCounter = 0; //to ensure yesterday's data is cleared.
                 ContentValues values = new ContentValues();
                 values.put(StepEntry.COLUMN_NAME_Date, getDate());
                 values.put(StepEntry.COLUMN_NAME_Step, stepCounter);
-                dbHelper.insertStep(values,context);
-            }
-            else
-            {
-                if(dbStep!=stepCounter) //has value changed, if no change, no update.
+                dbHelper.insertStep(values, context);
+            } else {
+                if (dbStep != stepCounter) //has value changed, if no change, no update.
                 {
 
                     ContentValues upValues = new ContentValues();
@@ -191,4 +205,37 @@ public class SensorService extends Service implements SensorEventListener {
             }
         }
     }
+    BroadcastReceiver ReminderNotification = new BroadcastReceiver()  {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String title,content;
+            int remainingStep = targetStep-stepCounter;
+            Toast.makeText(context,String.valueOf(remainingStep), Toast.LENGTH_SHORT);
+            if(remainingStep>2000)
+            {
+                title = "Go out for a walk!";
+                content = "you still have to walk "+(remainingStep)+" today";
+            }
+            else if(remainingStep<2000&&remainingStep>0)
+            {
+                title = "Just little to go";
+                content = "you still have to walk "+(remainingStep)+" today";
+            }
+            else
+            {
+                title = "You have reached the target";
+                content = "Click this to view your step record today";
+            }
+            PendingIntent pi = PendingIntent.getActivity(context, 0, new Intent(context, MainActivity.class),0);
+            Notification.Builder reminderBuilder = new Notification.Builder(context);
+            reminderBuilder.setSmallIcon(R.drawable.new_fitness_plan);
+            reminderBuilder.setContentTitle(title);
+            reminderBuilder.setContentText(content);
+            reminderBuilder.setContentIntent(pi);
+            reminderBuilder.setDefaults(Notification.DEFAULT_SOUND);
+            reminderBuilder.setAutoCancel(true);
+            NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+            manager.notify(1,reminderBuilder.build());
+        }
+    };
 }
