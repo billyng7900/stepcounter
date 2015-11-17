@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,6 +20,7 @@ import android.widget.NumberPicker;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.view.View.OnClickListener;
+import android.widget.Toast;
 
 /**
  * Created by NgChau on 16/11/2015.
@@ -43,6 +45,12 @@ public class UserInfoActivity extends Activity implements NumberPicker.OnValueCh
         setContentView(R.layout.activity_userinfo);
         ActionBar ab = getActionBar();
         getActionBar().setDisplayHomeAsUpEnabled(true);
+
+        Intent intent = getIntent();
+        String msg = intent.getStringExtra("msg");
+        if(!msg.isEmpty()){
+            Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+        }
 
         userName = (EditText)findViewById(R.id.userNameInput);
         heightInput = (EditText)findViewById(R.id.userHeightInput);

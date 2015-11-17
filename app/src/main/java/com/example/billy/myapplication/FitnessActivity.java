@@ -31,6 +31,12 @@ public class FitnessActivity extends Activity {
         height = settings.getFloat("height", 0.00f);
         weight = settings.getFloat("weight", 0.00f);
 
+        if(height==0.00f || weight==0.00f){
+            Intent intent = new Intent(this, UserInfoActivity.class);
+            intent.putExtra("msg", "Please input your information.");
+            startActivity(intent);
+        }
+
         fitness = new FitnessPlan(height, weight);
 
         tv_BMI = (TextView)findViewById(R.id.tv_bmistatus);
