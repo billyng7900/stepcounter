@@ -10,6 +10,9 @@ import android.widget.AbsListView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class StepRecordActivity extends Activity {
     ArrayList<Step> stepList;
@@ -26,6 +29,17 @@ public class StepRecordActivity extends Activity {
         stepList = new ArrayList<>();
         dbHelper = new StepDbHelper(this);
         stepList = dbHelper.getAllStepRecord(this);
+        Collections.sort(stepList, new Comparator<Step>() {
+            @Override
+            public int compare(Step lhs, Step rhs) {
+                int result =  (lhs).getConvertToDate().compareTo(rhs.getConvertToDate());
+                if(result == 1)
+                    result = -1;
+                else if(result == -1)
+                    result = 1;
+                return result;
+            }
+        });
         adapter = new StepListAdapter(this,stepList);
         listView = (ListView) findViewById(R.id.list_step);
         listView.setAdapter(adapter);

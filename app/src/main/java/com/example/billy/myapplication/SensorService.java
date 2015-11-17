@@ -147,6 +147,7 @@ public class SensorService extends Service implements SensorEventListener {
     }
     private void setUpFixedNotification()
     {
+        targetStep = settings.getInt("targetStepDay",0);
         String msgText  = "Today step: "
                 + stepCounter;
         if(targetStep>0)
@@ -159,7 +160,7 @@ public class SensorService extends Service implements SensorEventListener {
             msgText +="\nSet up your fitness plan now!";
         }
 
-        fixedBuilder.setSmallIcon(R.drawable.view_record);
+        fixedBuilder.setSmallIcon(R.drawable.app_icon);
         fixedBuilder.setContentTitle("Step Counter");
         fixedBuilder.setContentText("Your step record");
         fixedBuilder.setAutoCancel(true);
@@ -228,7 +229,7 @@ public class SensorService extends Service implements SensorEventListener {
             }
             PendingIntent pi = PendingIntent.getActivity(context, 0, new Intent(context, MainActivity.class),0);
             Notification.Builder reminderBuilder = new Notification.Builder(context);
-            reminderBuilder.setSmallIcon(R.drawable.new_fitness_plan);
+            reminderBuilder.setSmallIcon(R.drawable.app_icon);
             reminderBuilder.setContentTitle(title);
             reminderBuilder.setContentText(content);
             reminderBuilder.setContentIntent(pi);
