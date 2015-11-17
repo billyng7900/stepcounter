@@ -45,7 +45,6 @@ public class MainActivity extends Activity implements SensorEventListener{
         filter.addAction("android.intent.action.teststepcounter");
         this.registerReceiver(receiver, filter);
         settings = getSharedPreferences("fitness_plan",MODE_PRIVATE);
-        getActionBar().setDisplayShowHomeEnabled(true);
     }
 
     @Override
