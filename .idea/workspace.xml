@@ -32,13 +32,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7a5c20b2-fb97-48d2-b475-b4e7a6c194cb" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/billy/myapplication/ViewStepDetail.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_view_step_detail.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/menu/menu_step_record.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/menu/menu_view_step_detail.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/billy/myapplication/StepRecordActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/billy/myapplication/StepRecordActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="stepcounter.iws" />
@@ -93,6 +87,16 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="AndroidManifest.xml" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.7801653">
+              <caret line="53" column="49" selection-start-line="53" selection-start-column="49" selection-end-line="53" selection-end-column="49" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="StepRecordActivity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/billy/myapplication/StepRecordActivity.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -116,11 +120,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ViewStepDetail.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ViewStepDetail.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/billy/myapplication/ViewStepDetail.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.47107437">
-              <caret line="27" column="56" selection-start-line="27" selection-start-column="56" selection-end-line="27" selection-end-column="56" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="26" column="13" selection-start-line="26" selection-start-column="13" selection-end-line="26" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -1588,7 +1592,6 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/billy/myapplication/FitnessActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/billy/myapplication/UserInfoActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/billy/myapplication/ReminderNotification.java" />
-        <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/billy/myapplication/Typewriter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/billy/myapplication/WelcomeActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/billy/myapplication/SensorService.java" />
@@ -1601,6 +1604,7 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/billy/myapplication/StepRecordActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_view_step_detail.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/billy/myapplication/ViewStepDetail.java" />
+        <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
       </list>
     </option>
   </component>
@@ -2326,7 +2330,13 @@
       <option name="project" value="LOCAL" />
       <updated>1447781131194</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="added View Step Detail">
+      <created>1447785740557</created>
+      <option name="number" value="00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1447785740557</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -2379,7 +2389,8 @@
     <MESSAGE value="everyday review notification" />
     <MESSAGE value="modified order of the record in list&#10;sensor service notification icon change" />
     <MESSAGE value="modified UI" />
-    <option name="LAST_COMMIT_MESSAGE" value="modified UI" />
+    <MESSAGE value="added View Step Detail" />
+    <option name="LAST_COMMIT_MESSAGE" value="added View Step Detail" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2559,14 +2570,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.35067114">
-          <caret line="29" column="46" selection-start-line="29" selection-start-column="46" selection-end-line="29" selection-end-column="46" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
       <provider editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -2730,8 +2733,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/billy/myapplication/ViewStepDetail.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.47107437">
-          <caret line="27" column="56" selection-start-line="27" selection-start-column="56" selection-end-line="27" selection-end-column="56" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="26" column="13" selection-start-line="26" selection-start-column="13" selection-end-line="26" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7801653">
+          <caret line="53" column="49" selection-start-line="53" selection-start-column="49" selection-end-line="53" selection-end-column="49" />
           <folding />
         </state>
       </provider>

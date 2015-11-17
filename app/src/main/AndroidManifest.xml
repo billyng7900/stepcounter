@@ -49,6 +49,9 @@
             android:name=".ViewActivity"
             android:label="User Information"
             android:screenOrientation="portrait"/>
+        <activity android:name=".ViewStepDetail"
+            android:label="View Step Detail"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>
