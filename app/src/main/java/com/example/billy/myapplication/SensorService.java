@@ -1,7 +1,5 @@
 package com.example.billy.myapplication;
 
-import android.app.Activity;
-import android.app.IntentService;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -9,14 +7,12 @@ import android.app.Service;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
+import android.content.SharedPreferences;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.*;
-import android.view.Gravity;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
@@ -34,12 +30,16 @@ public class SensorService extends Service implements SensorEventListener {
     private String isRunning;
     private float previousY;
     private float currentY;
-    private int numSteps;
+    private int numSteps,targetStep;
     private int threshold;
     private Timer myTimer;
     private MyTimerStore myTimerStore;
     private  StepDbHelper dbHelper;
-    private Context context = this;
+    private Context context;
+    Notification.Builder fixedBuilder,reminderBuilder;
+    Notification fixedNotification;
+    private int remainingStep;
+    private SharedPreferences settings;
 
     public SensorService() {
 
@@ -55,19 +55,22 @@ public class SensorService extends Service implements SensorEventListener {
         myTimer = new Timer();
         myTimerStore = new MyTimerStore();
         dbHelper = new StepDbHelper(this);
-
+        context = this;
+        fixedBuilder = new Notification.Builder(this);
+        reminderBuilder = new Notification.Builder(this);
+        settings = getSharedPreferences("user_info", MODE_PRIVATE);
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        targetStep = settings.getInt("",0);
         String[] args = {getDate()};
         int dbStep = dbHelper.getDbStep(args, context);
-
         if(dbStep!=-1)
             stepCounter = dbStep;
         else
             stepCounter = 0;
-        setUpNotification();
+        setUpFixedNotification();
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         Sensor sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         if (sensor != null) {
@@ -95,6 +98,7 @@ public class SensorService extends Service implements SensorEventListener {
             intent.putExtra("stepCounter",stepCounter);
             intent.setAction("android.intent.action.teststepcounter");
             sendBroadcast(intent);
+            setUpFixedNotification();
         }
         previousY = y;
     }
@@ -121,18 +125,25 @@ public class SensorService extends Service implements SensorEventListener {
         return dateFormat.format(date);
     }
 
-    private void setUpNotification()
+    private void setUpFixedNotification()
     {
-        String msgText = "You have current walk for "
-                + stepCounter
-                + "steps now!" +
-                "xxx steps remaining. Keep going!";
-        Notification.Builder nBuilder = new Notification.Builder(this);
-        nBuilder.setSmallIcon(R.drawable.view_record);
-        nBuilder.setContentTitle("Step Counter");
-        nBuilder.setContentText("Your step report for today.");
-        nBuilder.setAutoCancel(true);
-        nBuilder.setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE);
+        String msgText  = "Today step: "
+                + stepCounter;
+        if(targetStep>0)
+        {
+            msgText +="\nTarget step: " +
+                    "xxx.";
+        }
+        else
+        {
+            msgText +="\nSet up your fitness plan now!";
+        }
+
+        fixedBuilder.setSmallIcon(R.drawable.view_record);
+        fixedBuilder.setContentTitle("Step Counter");
+        fixedBuilder.setContentText("Your step record");
+        fixedBuilder.setAutoCancel(true);
+        fixedBuilder.setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE);
         Intent nIntent = new Intent(this, MainActivity.class);
         nIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, nIntent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -140,12 +151,13 @@ public class SensorService extends Service implements SensorEventListener {
         intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         PendingIntent pendingIntent1 = PendingIntent.getActivity(this, 0, intent1, PendingIntent.FLAG_UPDATE_CURRENT);
         PendingIntent pendingIntent2 = PendingIntent.getActivity(this, 0, new Intent(this,FitnessPlan.class), PendingIntent.FLAG_UPDATE_CURRENT);
-        nBuilder.setContentIntent(pendingIntent);
-        nBuilder.addAction(R.drawable.view_notification,"Show",pendingIntent1);
-        nBuilder.addAction(R.drawable.view_step_record,"Review",pendingIntent2);
+        fixedBuilder.setContentIntent(pendingIntent);
+        //fixedBuilder.addAction(R.drawable.view_notification, "Show", pendingIntent1);
+        //fixedBuilder.addAction(R.drawable.view_step_record, "Review", pendingIntent2);
         NotificationManager nManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        Notification notification = new Notification.BigTextStyle(nBuilder).bigText(msgText).build();
-        nManager.notify(0, notification);
+        fixedNotification = new Notification.BigTextStyle(fixedBuilder).bigText(msgText).build();
+        fixedNotification.flags = Notification.FLAG_ONGOING_EVENT | Notification.FLAG_NO_CLEAR;
+        nManager.notify(0, fixedNotification);
     }
     private class MyTimerStore extends TimerTask
     {

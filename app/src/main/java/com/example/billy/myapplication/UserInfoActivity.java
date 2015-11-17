@@ -46,12 +46,6 @@ public class UserInfoActivity extends Activity implements NumberPicker.OnValueCh
         ActionBar ab = getActionBar();
         getActionBar().setDisplayHomeAsUpEnabled(true);
 
-        Intent intent = getIntent();
-        String msg = intent.getStringExtra("msg");
-        if(!msg.isEmpty()){
-            Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
-        }
-
         userName = (EditText)findViewById(R.id.userNameInput);
         heightInput = (EditText)findViewById(R.id.userHeightInput);
         weightInput = (EditText)findViewById(R.id.userWeightInput);
