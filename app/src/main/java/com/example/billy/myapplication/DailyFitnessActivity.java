@@ -33,7 +33,7 @@ public class DailyFitnessActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dailyfitness);
-        ActionBar ab = getActionBar();
+
         getActionBar().setDisplayHomeAsUpEnabled(true);
 
         SharedPreferences settings = getSharedPreferences("fitness_plan", MODE_PRIVATE);

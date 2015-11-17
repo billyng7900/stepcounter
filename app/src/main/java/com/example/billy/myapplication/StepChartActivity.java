@@ -43,7 +43,7 @@ public class StepChartActivity extends Activity implements OnChartGestureListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step_chart_activity);
-        ActionBar ab = getActionBar();
+
         getActionBar().setDisplayHomeAsUpEnabled(true);
 
         lineChart = (LineChart)findViewById(R.id.chart);

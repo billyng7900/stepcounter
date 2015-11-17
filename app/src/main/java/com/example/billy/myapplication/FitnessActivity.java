@@ -23,8 +23,13 @@ public class FitnessActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inifitness);
-        ActionBar ab = getActionBar();
+
         getActionBar().setDisplayHomeAsUpEnabled(true);
+
+        tv_BMI = (TextView)findViewById(R.id.tv_bmistatus);
+        tv_sweight = (TextView)findViewById(R.id.tv_sweight);
+        tv_step = (TextView)findViewById(R.id.tv_step);
+        tv_target = (TextView)findViewById((R.id.tv_target));
     }
 
     public void onPlanStart(View v){
@@ -58,10 +63,6 @@ public class FitnessActivity extends Activity {
         }
         fitness = new FitnessPlan(height, weight);
 
-        tv_BMI = (TextView)findViewById(R.id.tv_bmistatus);
-        tv_sweight = (TextView)findViewById(R.id.tv_sweight);
-        tv_step = (TextView)findViewById(R.id.tv_step);
-        tv_target = (TextView)findViewById((R.id.tv_target));
         tv_BMI.setText("BMI : " + String.format("%.1f", fitness.getBMI()) + "\n" + fitness.getBMIStatus());
         tv_sweight.setText(fitness.getSuggestedWeightPlan());
         tv_step.setText("Healthy Life Style: " + fitness.getHealthyStyle() + " Steps");

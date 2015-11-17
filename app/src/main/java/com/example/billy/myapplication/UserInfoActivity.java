@@ -43,7 +43,7 @@ public class UserInfoActivity extends Activity implements NumberPicker.OnValueCh
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_userinfo);
-        ActionBar ab = getActionBar();
+
         getActionBar().setDisplayHomeAsUpEnabled(true);
 
         userName = (EditText)findViewById(R.id.userNameInput);

@@ -23,30 +23,24 @@ import android.widget.TextView;
 
 public class ViewActivity extends Activity {
 
-    TextView tv_name;
-    TextView tv_age;
-    TextView tv_gender;
-    TextView tv_height;
-    TextView tv_weight;
+    TextView tv_name, tv_age, tv_height, tv_weight, alertText;
     EditText et_alert;
     Button save,alertButtonOk,alertButtonCancel;
-    float height;
-    float weight;
+    float height, weight;
     int age;
-    String name;
-    String gender;
+    String name, gender;
     Boolean isComplete;
-    TextView alertText;
     AlertDialog alertDialog,alertDialogEdit;
     AlertDialog.Builder adb,adbEdit;
     Activity activity;
     SharedPreferences settings;
     int updateType;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view);
-        ActionBar ab = getActionBar();
+
         getActionBar().setDisplayHomeAsUpEnabled(true);
 
         settings = getSharedPreferences("user_info", MODE_PRIVATE);
