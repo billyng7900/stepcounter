@@ -11,7 +11,8 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".MainActivity"
-            android:label="Step Counter" >
+            android:label="Step Counter"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,7 +21,8 @@
         </activity>
         <activity
             android:name=".FitnessActivity"
-            android:label="New Fitness Plan" />
+            android:label="New Fitness Plan"
+            android:screenOrientation="portrait"/>
 
         <service
             android:name=".SensorService"
@@ -29,25 +31,24 @@
         <activity
             android:name=".StepRecordActivity"
             android:exported="true"
-            android:label="Step Record" >
-        </activity>
+            android:label="Step Record"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".DailyFitnessActivity"
-            android:label="My Fitness Plan" />
+            android:label="My Fitness Plan"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".UserInfoActivity"
+            android:screenOrientation="portrait"
             android:label="User Information" />
         <activity
             android:name=".StepChartActivity"
-            android:label="Step Chart" >
-        </activity>
+            android:label="Step Chart"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ViewActivity"
-            android:label="User Information" />
-        <activity
-            android:name=".ViewStepDetail"
-            android:label="@string/title_activity_view_step_detail" >
-        </activity>
+            android:label="User Information"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
