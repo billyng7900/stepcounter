@@ -37,6 +37,7 @@ public class MainActivity extends Activity implements SensorEventListener{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         stepText = (TextView)findViewById(R.id.text_step);
         targetText = (TextView)findViewById(R.id.text_targetStep);
         fitnessButton = (Button)findViewById(R.id.button_fitness);
@@ -45,10 +46,17 @@ public class MainActivity extends Activity implements SensorEventListener{
         filter.addAction("android.intent.action.teststepcounter");
         this.registerReceiver(receiver, filter);
         settings = getSharedPreferences("fitness_plan",MODE_PRIVATE);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
         if(settings.getFloat("height",0)==0)
             hasEnteredRecord = false;
         else
             hasEnteredRecord = true;
+
         //get DB data
         dbHelper = new StepDbHelper(this);
         String[] args = {getDate()};
@@ -64,6 +72,8 @@ public class MainActivity extends Activity implements SensorEventListener{
         if(!isMyServiceRunning(SensorService.class))
             onStartService();
 
+        setUpTarget();
+        invalidateOptionsMenu();
     }
 
     public void setUpTarget()
@@ -126,12 +136,7 @@ public class MainActivity extends Activity implements SensorEventListener{
         super.onStart();
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        setUpTarget();
-        invalidateOptionsMenu();
-    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
