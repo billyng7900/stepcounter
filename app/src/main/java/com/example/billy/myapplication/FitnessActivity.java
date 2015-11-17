@@ -1,5 +1,6 @@
 package com.example.billy.myapplication;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -22,6 +23,8 @@ public class FitnessActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inifitness);
+        ActionBar ab = getActionBar();
+        getActionBar().setDisplayHomeAsUpEnabled(true);
 
         SharedPreferences settings = getSharedPreferences("user_info", MODE_PRIVATE);
 
