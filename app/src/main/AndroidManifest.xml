@@ -44,6 +44,10 @@
         <activity
             android:name=".ViewActivity"
             android:label="User Information" />
+        <activity
+            android:name=".ViewStepDetail"
+            android:label="@string/title_activity_view_step_detail" >
+        </activity>
     </application>
 
 </manifest>
