@@ -35,6 +35,7 @@ public class ViewActivity extends Activity {
     Activity activity;
     SharedPreferences settings;
     int updateType;
+    Button dialogButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,18 +96,19 @@ public class ViewActivity extends Activity {
         });
         alertText = new TextView(this);
         adb = new AlertDialog.Builder(this);
-        adb.setView(alertText);
-        adb.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        LayoutInflater inflater = this.getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.alertdialog_notify,null);
+        adb.setView(dialogView);
+        alertText = (TextView)dialogView.findViewById(R.id.text_message);
+        dialogButton = (Button)dialogView.findViewById(R.id.button_dialog_confirm);
+        dialogButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
-                if (!isComplete) {
-                    alertText.setText("The information is not complete");
-                } else {
+            public void onClick(View v) {
+                if (isComplete) {
                     name = tv_name.getText().toString();
-                    age = Integer.parseInt(tv_age.getText().toString());
                     height = Float.valueOf(tv_height.getText().toString());
                     weight = Float.valueOf(tv_weight.getText().toString());
-
+                    age = Integer.parseInt(tv_age.getText().toString());
                     settings = getSharedPreferences("user_info", Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = settings.edit();
                     editor.putString("name", name);
@@ -115,16 +117,19 @@ public class ViewActivity extends Activity {
                     editor.putInt("age", age);
                     editor.putString("gender", gender);
                     editor.commit();
+                    alertDialog.dismiss();
                     activity.finish();
+                } else {
+                    alertDialog.dismiss();
                 }
             }
         });
         adbEdit = new AlertDialog.Builder(this);
-        LayoutInflater inflater = this.getLayoutInflater();
-        View dialogView = inflater.inflate(R.layout.alertdialog_edittext, null);
-        et_alert = (EditText)dialogView.findViewById(R.id.text_edit);
-        alertButtonOk = (Button)dialogView.findViewById(R.id.button_ok);
-        alertButtonCancel = (Button)dialogView.findViewById(R.id.button_cancel);
+        LayoutInflater inflater1 = this.getLayoutInflater();
+        View dialogView1 = inflater.inflate(R.layout.alertdialog_edittext, null);
+        et_alert = (EditText)dialogView1.findViewById(R.id.text_edit);
+        alertButtonOk = (Button)dialogView1.findViewById(R.id.button_ok);
+        alertButtonCancel = (Button)dialogView1.findViewById(R.id.button_cancel);
         alertButtonOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -143,7 +148,7 @@ public class ViewActivity extends Activity {
                 alertDialogEdit.dismiss();
             }
         });
-        adbEdit.setView(dialogView);
+        adbEdit.setView(dialogView1);
         alertDialog = adb.create();
         alertDialogEdit = adbEdit.create();
     }
