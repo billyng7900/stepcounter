@@ -8,26 +8,29 @@
 
     <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/chart"
-        android:layout_width="369dp"
-        android:layout_height="471dp"
+        android:layout_width="match_parent"
+        android:layout_height="448dp"
         android:layout_alignParentEnd="true">
     </com.github.mikephil.charting.charts.LineChart>
 
     <LinearLayout
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-        <SeekBar
-            android:layout_width="313dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/seekBar_day" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="New Text"
-            android:id="@+id/text_day" />
+            android:text="*It only shows step record in last 30 days"
+            android:id="@+id/textView4"
+            android:layout_gravity="center_horizontal" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Show Step Details"
+            android:id="@+id/button"
+            android:onClick="openStepRecord" />
     </LinearLayout>
 
 </LinearLayout>

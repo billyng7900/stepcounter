@@ -3,12 +3,14 @@ package com.example.billy.myapplication;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.ContentValues;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
+import android.view.View;
 
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.LineChart;
@@ -177,7 +179,7 @@ public class StepChartActivity extends Activity implements OnChartGestureListene
         }
         Calendar cal = Calendar.getInstance();
         cal.setTime(maxDate);
-        cal.add(Calendar.DATE,-30);
+        cal.add(Calendar.DATE, -30);
         Date date30Before = cal.getTime();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String dateBefore30Days = dateFormat.format(date30Before);
@@ -203,6 +205,12 @@ public class StepChartActivity extends Activity implements OnChartGestureListene
             }
         }
         return newStepList;
+    }
+
+    public void openStepRecord(View view)
+    {
+        Intent intent = new Intent(this,StepRecordActivity.class);
+        startActivity(intent);
     }
 
     @Override

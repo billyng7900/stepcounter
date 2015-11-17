@@ -41,8 +41,9 @@
             android:name=".StepChartActivity"
             android:label="Step Chart" >
         </activity>
-        <activity android:name=".ViewActivity"
-            android:label="User Information"></activity>
+        <activity
+            android:name=".ViewActivity"
+            android:label="User Information" />
     </application>
 
 </manifest>

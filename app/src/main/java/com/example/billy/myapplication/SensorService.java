@@ -143,7 +143,6 @@ public class SensorService extends Service implements SensorEventListener {
         PendingIntent pi = PendingIntent.getBroadcast(this, 0, reminderNotification, PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager am = (AlarmManager) getSystemService(ALARM_SERVICE);
         am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY,pi);
-
     }
     private void setUpFixedNotification()
     {
@@ -209,34 +208,31 @@ public class SensorService extends Service implements SensorEventListener {
     BroadcastReceiver ReminderNotification = new BroadcastReceiver()  {
         @Override
         public void onReceive(Context context, Intent intent) {
-            String title,content;
-            int remainingStep = targetStep-stepCounter;
-            Toast.makeText(context,String.valueOf(remainingStep), Toast.LENGTH_SHORT);
-            if(remainingStep>2000)
-            {
-                title = "Go out for a walk!";
-                content = "you still have to walk "+(remainingStep)+" today";
+            if(targetStep == 0) {
+                String title, content;
+                int remainingStep = targetStep - stepCounter;
+                Toast.makeText(context, String.valueOf(remainingStep), Toast.LENGTH_SHORT);
+                if (remainingStep > 2000) {
+                    title = "Go out for a walk!";
+                    content = "you still have to walk " + (remainingStep) + " today";
+                } else if (remainingStep < 2000 && remainingStep > 0) {
+                    title = "Just little to go";
+                    content = "you still have to walk " + (remainingStep) + " today";
+                } else {
+                    title = "You have reached the target";
+                    content = "Click this to view your step record today";
+                }
+                PendingIntent pi = PendingIntent.getActivity(context, 0, new Intent(context, MainActivity.class), 0);
+                Notification.Builder reminderBuilder = new Notification.Builder(context);
+                reminderBuilder.setSmallIcon(R.drawable.app_icon);
+                reminderBuilder.setContentTitle(title);
+                reminderBuilder.setContentText(content);
+                reminderBuilder.setContentIntent(pi);
+                reminderBuilder.setDefaults(Notification.DEFAULT_SOUND);
+                reminderBuilder.setAutoCancel(true);
+                NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+                manager.notify(1, reminderBuilder.build());
             }
-            else if(remainingStep<2000&&remainingStep>0)
-            {
-                title = "Just little to go";
-                content = "you still have to walk "+(remainingStep)+" today";
-            }
-            else
-            {
-                title = "You have reached the target";
-                content = "Click this to view your step record today";
-            }
-            PendingIntent pi = PendingIntent.getActivity(context, 0, new Intent(context, MainActivity.class),0);
-            Notification.Builder reminderBuilder = new Notification.Builder(context);
-            reminderBuilder.setSmallIcon(R.drawable.app_icon);
-            reminderBuilder.setContentTitle(title);
-            reminderBuilder.setContentText(content);
-            reminderBuilder.setContentIntent(pi);
-            reminderBuilder.setDefaults(Notification.DEFAULT_SOUND);
-            reminderBuilder.setAutoCancel(true);
-            NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-            manager.notify(1,reminderBuilder.build());
         }
     };
 }

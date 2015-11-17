@@ -37,7 +37,6 @@ public class MainActivity extends Activity implements SensorEventListener{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         stepText = (TextView)findViewById(R.id.text_step);
         targetText = (TextView)findViewById(R.id.text_targetStep);
         fitnessButton = (Button)findViewById(R.id.button_fitness);
@@ -46,6 +45,7 @@ public class MainActivity extends Activity implements SensorEventListener{
         filter.addAction("android.intent.action.teststepcounter");
         this.registerReceiver(receiver, filter);
         settings = getSharedPreferences("fitness_plan",MODE_PRIVATE);
+        getActionBar().setDisplayShowHomeEnabled(true);
     }
 
     @Override
@@ -102,11 +102,6 @@ public class MainActivity extends Activity implements SensorEventListener{
     public void openFitnessPlan(View view)
     {
         switchIntent(FitnessActivity.class);
-    }
-
-    public void openStepRecord(View view)
-    {
-        switchIntent(StepRecordActivity.class);
     }
 
     public void openStepChart(View view)

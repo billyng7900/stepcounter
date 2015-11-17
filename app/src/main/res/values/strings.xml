@@ -28,5 +28,6 @@
     <string name="menu_back">Back</string>
     <string name="menu_fitness">Start New Fitness Plan</string>
     <string name="menu_new_fitness">View My Fitness Plan</string>
+    <string name="title_activity_welcome">WelcomeActivity</string>
 
 </resources>

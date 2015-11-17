@@ -64,7 +64,7 @@
         android:id="@+id/button_step"
         android:layout_below="@+id/text_targetStep"
         android:layout_gravity="center_horizontal"
-        android:onClick="openStepRecord" />
+        android:onClick="openStepChart" />
 
     <Space
         android:layout_width="match_parent"
@@ -86,14 +86,5 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_weight="0.2" />
-
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="view chart(test function)"
-        android:id="@+id/button"
-        android:layout_gravity="center_horizontal"
-        android:onClick="openStepChart" />
 
 </LinearLayout>
