@@ -1,5 +1,6 @@
 package com.example.billy.myapplication;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.BroadcastReceiver;
@@ -31,6 +32,7 @@ public class MainActivity extends Activity implements SensorEventListener{
     StepDbHelper dbHelper;
     boolean hasRemainingStep, hasEnteredRecord;
     SharedPreferences settings;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,7 +68,6 @@ public class MainActivity extends Activity implements SensorEventListener{
 
     public void setUpTarget()
     {
-
         int targetStep = settings.getInt("targetStepDay",0);
         hasRemainingStep = false;
         if(targetStep!=0)
@@ -129,12 +130,20 @@ public class MainActivity extends Activity implements SensorEventListener{
     protected void onResume() {
         super.onResume();
         setUpTarget();
+        invalidateOptionsMenu();
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        MenuItem newPlan = menu.findItem(R.id.action_fitness);
+        MenuItem viewPlan = menu.findItem(R.id.action_daily_fitness);
+        if(settings.getBoolean("planStarted", false)){
+            newPlan.setVisible(false);
+        }else{
+            viewPlan.setVisible(false);
+        }
         return true;
     }
 

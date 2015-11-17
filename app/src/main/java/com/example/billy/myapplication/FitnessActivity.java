@@ -55,6 +55,7 @@ public class FitnessActivity extends Activity {
         editor.putInt("targetTotal", fitness.getTargetStep());
         editor.putInt("targetStepDay", fitness.getHealthyStyle());
         editor.putString("startDate", fitness.getDate());
+        editor.putBoolean("planStarted", true);
         editor.commit();
         this.finish();
     }
