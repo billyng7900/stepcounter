@@ -18,6 +18,7 @@ public class FitnessActivity extends Activity {
     TextView tv_BMI, tv_sweight, tv_step, tv_target;
     public FitnessPlan fitness;
     Float height, weight;
+    String gender;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,18 +57,20 @@ public class FitnessActivity extends Activity {
         SharedPreferences settings = getSharedPreferences("user_info", MODE_PRIVATE);
         height = settings.getFloat("height", 0.00f);
         weight = settings.getFloat("weight", 0.00f);
+        gender = settings.getString("gender", "gender");
         if(height==0.00f || weight==0.00f){
             Intent intent = new Intent(this, UserInfoActivity.class);
             intent.putExtra("msg", "Please input your information.");
             startActivity(intent);
         }
         fitness = new FitnessPlan(height, weight);
+        fitness.setGender(gender);
 
         tv_BMI.setText("BMI : " + String.format("%.1f", fitness.getBMI()) + "\n" + fitness.getBMIStatus());
         tv_sweight.setText(fitness.getSuggestedWeightPlan());
         tv_step.setText("Healthy Life Style: " + fitness.getHealthyStyle() + " Steps");
         if(fitness.getBMI()>=25) {
-            tv_target.setText("Target Days: " + (fitness.getTargetStep() / 10000));
+            tv_target.setText("Target Days: " + (fitness.getTargetDays()));
         }else{
             tv_target.setVisibility(View.INVISIBLE);
         }

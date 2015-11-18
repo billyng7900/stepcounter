@@ -12,10 +12,11 @@ public class FitnessPlan {
     final private int calPerKg = 7700;
     private float height;
     private float weight;
+    private String gender;
     private float BMI_value;
     private int targetStep;
     private String startDate;
-    private int accumulatedStep;
+    private int accumulatedStep, accumulatedDay;
 
     public FitnessPlan(Float h, Float w) {
         height = h;
@@ -82,12 +83,42 @@ public class FitnessPlan {
         return plan;
     }
 
-    public int getTargetStep(){
+    public int getTargetCalBurn(){
+        int targetCalBurn = 0;
         if(getBMI()>=25) {
-            float targetCalBurn = (weight - (int) getSuggestedWeight(21)) * calPerKg;
+            targetCalBurn = (int)((weight - (int) getSuggestedWeight(21)) * calPerKg);
             targetStep = (int) (targetCalBurn / stepCal);
         }
+        return targetCalBurn;
+    }
+
+    public int getTargetStep(){
+        if(getBMI()>=25) {
+            targetStep = (int) (getTargetCalBurn() / stepCal);
+        }
         return targetStep;
+    }
+
+    public int getDailyBurn(){
+        int dailyBurn = 0;
+        switch(gender){
+            case "M":
+                dailyBurn = 900;
+                break;
+            case "F":
+                dailyBurn = 600;
+                break;
+        }
+        return dailyBurn;
+    }
+
+    public int getTargetDays(){
+        return (getTargetCalBurn()/(int)((getHealthyStyle()*stepCal)+getDailyBurn()));
+    }
+
+    public int getAccumulatedTargetDays(){
+        int accumulatedBurn = (int)(getAccumulatedStep()*stepCal + getAccumulatedDay()*getDailyBurn());
+        return (getTargetCalBurn()-accumulatedBurn)/(int)((getHealthyStyle()*stepCal)+getDailyBurn());
     }
 
     public int getHealthyStyle(){
@@ -112,6 +143,18 @@ public class FitnessPlan {
 
     public int getAccumulatedStep(){
         return accumulatedStep;
+    }
+
+    public void setAccumulatedDay(int i){
+        accumulatedDay = i;
+    }
+
+    public int getAccumulatedDay(){
+        return accumulatedDay;
+    }
+
+    public void setGender(String s){
+        gender = s;
     }
 
     public String getDate(){

@@ -25,7 +25,7 @@ public class DailyFitnessActivity extends Activity {
     FitnessPlan fitness;
     Float height, weight;
     int targetTotal,targetStepDay;
-    String startDate;
+    String startDate, gender;
     ArrayList<Step> stepArrayList;
 
 
@@ -44,28 +44,33 @@ public class DailyFitnessActivity extends Activity {
         targetStepDay = settings.getInt("targetStepDay", 0);
         startDate = settings.getString("startDate", "ERROR");
 
+        SharedPreferences sp = getSharedPreferences("user_info", MODE_PRIVATE);
+        gender = sp.getString("gender", "gender");
+
         fitness = new FitnessPlan(height, weight);
         fitness.setStartDate(startDate);
-        fitness.setAccumulatedStep(getStepRecord());
+        fitness.setGender(gender);
         stepArrayList = new ArrayList<>();
+        getStepRecord();
 
         tv_dailyStep = (TextView)findViewById(R.id.tv_dailyStep);
         tv_targetDays = (TextView)findViewById(R.id.tv_targetDays);
 
         tv_dailyStep.setText("Target Steps for Today: " + fitness.getHealthyStyle());
         if(fitness.getBMI()>=25) {
-            String s = "My Fitness Plan from: " + fitness.getStartDate()
+            String s = "My Fitness Plan since: " + fitness.getStartDate()
                     + "\nAccumulated Steps: " + fitness.getAccumulatedStep()
-                    + "\nTarget Steps: " + targetTotal
-                    + "\nTarget Days: " + (targetTotal-fitness.getAccumulatedStep())/targetStepDay;
+                    + "\nTarget Steps: " + fitness.getTargetStep()
+                    + "\nTarget Days: " + fitness.getAccumulatedTargetDays();
             tv_targetDays.setText(s);
         }else{
             tv_targetDays.setVisibility(View.INVISIBLE);
         }
     }
 
-    public int getStepRecord(){
+    public void getStepRecord(){
         int accumulatedSteps = 0;
+        int countDays = 0;
         StepDbHelper dbHelper = new StepDbHelper(this);
         stepArrayList = dbHelper.getAllStepRecord(this);
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
@@ -76,12 +81,14 @@ public class DailyFitnessActivity extends Activity {
                 Date recordDate = dateFormat.parse(s);
             if(recordDate.equals(planStartDate) || recordDate.after(planStartDate)){
                 accumulatedSteps += stepArrayList.get(i).getStep();
+                countDays++;
             }
         }
         }catch (ParseException e){
             e.printStackTrace();
         }
-        return accumulatedSteps;
+        fitness.setAccumulatedStep(accumulatedSteps);
+        fitness.setAccumulatedDay(countDays);
     }
 
     public void onViewStep(View v){
