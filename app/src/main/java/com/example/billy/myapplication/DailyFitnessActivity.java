@@ -23,10 +23,11 @@ public class DailyFitnessActivity extends Activity {
 
     TextView tv_dailyStep, tv_targetDays;
     FitnessPlan fitness;
-    Float height, weight;
+    Float height, weight, n_height, n_weight;
     int targetTotal,targetStepDay;
     String startDate, gender;
     ArrayList<Step> stepArrayList;
+    Boolean planStarted;
 
 
     @Override
@@ -43,24 +44,42 @@ public class DailyFitnessActivity extends Activity {
         targetTotal = settings.getInt("targetTotal", 0);
         targetStepDay = settings.getInt("targetStepDay", 0);
         startDate = settings.getString("startDate", "ERROR");
+        planStarted = settings.getBoolean("planStarted", true);
 
         SharedPreferences sp = getSharedPreferences("user_info", MODE_PRIVATE);
         gender = sp.getString("gender", "gender");
+        n_height = sp.getFloat("height", 0.00f);
+        n_weight = sp.getFloat("weight", 0.00f);
 
         fitness = new FitnessPlan(height, weight);
         fitness.setStartDate(startDate);
         fitness.setGender(gender);
         stepArrayList = new ArrayList<>();
+
+        FitnessPlan f = new FitnessPlan(n_height, n_weight);
+        f.setGender(gender);
         getStepRecord();
 
         tv_dailyStep = (TextView)findViewById(R.id.tv_dailyStep);
         tv_targetDays = (TextView)findViewById(R.id.tv_targetDays);
 
-        tv_dailyStep.setText("Target Steps for Today: " + fitness.getHealthyStyle());
-        if(fitness.getBMI()>=25) {
-            String s = "My Fitness Plan since: " + fitness.getStartDate()
-                    + "\nAccumulated Steps: " + fitness.getAccumulatedStep()
-                    + "\nTarget Days: " + fitness.getAccumulatedTargetDays();
+        if(n_height != height || n_weight != weight) {
+            tv_dailyStep.setText("Target Steps for Today: " + f.getHealthyStyle() + "\nBMI : " + String.format("%.1f", f.getBMI()) + "\n" + f.getBMIStatus());
+        }else{
+            tv_dailyStep.setText("Target Steps for Today: " + fitness.getHealthyStyle() + "\nBMI : " + String.format("%.1f", fitness.getBMI()) + "\n" + fitness.getBMIStatus());
+        }
+
+        if(fitness.getBMI()>=24 || planStarted) {
+            String s = "";
+            if(n_height != height || n_weight != weight) {
+                 s = "My Fitness Plan since: " + fitness.getStartDate()
+                        + "\nAccumulated Steps: " + fitness.getAccumulatedStep()
+                        + "\nTarget Days: " + f.getTargetDays();
+            }else{
+                s = "My Fitness Plan since: " + fitness.getStartDate()
+                        + "\nAccumulated Steps: " + fitness.getAccumulatedStep()
+                        + "\nTarget Days: " + fitness.getAccumulatedTargetDays();
+            }
             tv_targetDays.setText(s);
         }else{
             tv_targetDays.setVisibility(View.INVISIBLE);

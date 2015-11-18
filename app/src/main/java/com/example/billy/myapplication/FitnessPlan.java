@@ -80,12 +80,15 @@ public class FitnessPlan {
                 plan = "You should lose weight to " + (int)getSuggestedWeight(21) + " kg.";
                 break;
         }
+        if(getBMI()>=24){
+            plan = "You should lose weight to " + (int)getSuggestedWeight(21) + " kg.";
+        }
         return plan;
     }
 
     public int getTargetCalBurn(){
         int targetCalBurn = 0;
-        if(getBMI()>=25) {
+        if(getBMI()>=21) {
             targetCalBurn = (int)((weight - (int) getSuggestedWeight(21)) * calPerKg);
             targetStep = (int) (targetCalBurn / stepCal);
         }
@@ -115,7 +118,7 @@ public class FitnessPlan {
     }
 
     public int getHealthyStyle(){
-        if(getBMI()>=25){
+        if(getBMI()>=24){
             return 10000;
         }else{
             return 6000;

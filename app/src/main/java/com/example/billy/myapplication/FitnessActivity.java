@@ -19,6 +19,7 @@ public class FitnessActivity extends Activity {
     public FitnessPlan fitness;
     Float height, weight;
     String gender;
+    SharedPreferences settings;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -34,7 +35,7 @@ public class FitnessActivity extends Activity {
     }
 
     public void onPlanStart(View v){
-        SharedPreferences settings = getSharedPreferences("fitness_plan", MODE_PRIVATE);
+        settings = getSharedPreferences("fitness_plan", MODE_PRIVATE);
         SharedPreferences.Editor editor = settings.edit();
         editor.putFloat("height", fitness.getHeight());
         editor.putFloat("weight", fitness.getWeight());
@@ -69,7 +70,7 @@ public class FitnessActivity extends Activity {
         tv_BMI.setText("BMI : " + String.format("%.1f", fitness.getBMI()) + "\n" + fitness.getBMIStatus());
         tv_sweight.setText(fitness.getSuggestedWeightPlan());
         tv_step.setText("Healthy Life Style: " + fitness.getHealthyStyle() + " Steps");
-        if(fitness.getBMI()>=25) {
+        if(fitness.getBMI()>=24 || settings.getBoolean("planStarted",false)) {
             tv_target.setText("Target Days: " + (fitness.getTargetDays()));
         }else{
             tv_target.setVisibility(View.INVISIBLE);
