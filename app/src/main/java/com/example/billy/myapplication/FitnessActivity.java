@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 /**
@@ -16,6 +17,7 @@ import android.widget.TextView;
 public class FitnessActivity extends Activity {
 
     TextView tv_BMI, tv_sweight, tv_step, tv_target;
+    Button btn_start;
     public FitnessPlan fitness;
     Float height, weight;
     String gender;
@@ -32,6 +34,7 @@ public class FitnessActivity extends Activity {
         tv_sweight = (TextView)findViewById(R.id.tv_sweight);
         tv_step = (TextView)findViewById(R.id.tv_step);
         tv_target = (TextView)findViewById((R.id.tv_target));
+        btn_start = (Button)findViewById(R.id.btn_start);
     }
 
     public void onPlanStart(View v){
@@ -74,6 +77,7 @@ public class FitnessActivity extends Activity {
             tv_target.setText("Target Days: " + (fitness.getTargetDays()));
         }else{
             tv_target.setVisibility(View.INVISIBLE);
+            btn_start.setVisibility(View.INVISIBLE);
         }
     }
 
