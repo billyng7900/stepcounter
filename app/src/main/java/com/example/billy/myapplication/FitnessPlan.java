@@ -14,7 +14,7 @@ public class FitnessPlan {
     private float weight;
     private String gender;
     private float BMI_value;
-    private int targetStep;
+    private Boolean isPlanStart;
     private String startDate;
     private int accumulatedStep, accumulatedDay;
 
@@ -22,7 +22,7 @@ public class FitnessPlan {
         height = h;
         weight = w;
         BMI_value = 0.00f;
-        targetStep = 0;
+        isPlanStart = false;
         getBMI();
     }
 
@@ -90,7 +90,6 @@ public class FitnessPlan {
         int targetCalBurn = 0;
         if(getBMI()>=21) {
             targetCalBurn = (int)((weight - (int) getSuggestedWeight(21)) * calPerKg);
-            targetStep = (int) (targetCalBurn / stepCal);
         }
         return targetCalBurn;
     }
@@ -118,7 +117,7 @@ public class FitnessPlan {
     }
 
     public int getHealthyStyle(){
-        if(getBMI()>=24){
+        if(getBMI()>=24 || isPlanStart){
             return 10000;
         }else{
             return 6000;
@@ -131,6 +130,10 @@ public class FitnessPlan {
 
     public String getStartDate(){
         return startDate;
+    }
+
+    public void setPlanStart(Boolean b){
+        isPlanStart = b;
     }
 
     public void setAccumulatedStep(int i){
