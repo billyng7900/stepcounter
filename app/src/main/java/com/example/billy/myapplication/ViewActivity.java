@@ -139,14 +139,16 @@ public class ViewActivity extends Activity {
                     editor.commit();
 
                     SharedPreferences s = getSharedPreferences("fitness_plan", MODE_PRIVATE);
-                    SharedPreferences.Editor e = s.edit();
-                    e.putFloat("height", s.getFloat("height", 0.00f));
-                    e.putFloat("weight", s.getFloat("weight", 0.00f));
-                    e.putInt("targetTotal", s.getInt("targetTotal", 0));
-                    e.putInt("targetStepDay", s.getInt("targetStepDay", 0));
-                    e.putString("startDate", s.getString("startDate", "ERROR"));
-                    e.putBoolean("planStarted", false);
-                    e.commit();
+                    if (s.getFloat("height", 0.00f) != height || s.getFloat("weight", 0.00f) !=weight){
+                        SharedPreferences.Editor e = s.edit();
+                        e.putFloat("height", s.getFloat("height", 0.00f));
+                        e.putFloat("weight", s.getFloat("weight", 0.00f));
+                        e.putInt("targetTotal", s.getInt("targetTotal", 0));
+                        e.putInt("targetStepDay", s.getInt("targetStepDay", 0));
+                        e.putString("startDate", s.getString("startDate", "ERROR"));
+                        e.putBoolean("planStarted", false);
+                        e.commit();
+                    }
 
                     alertDialog.dismiss();
                     activity.finish();
