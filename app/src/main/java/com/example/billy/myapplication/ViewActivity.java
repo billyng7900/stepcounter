@@ -4,6 +4,7 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
@@ -137,6 +138,11 @@ public class ViewActivity extends Activity {
                     editor.putString("gender", gender);
                     editor.putBoolean("stautsBar", isStatusBar);
                     editor.commit();
+                    if(isStatusBar==false)
+                    {
+                        NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                        mNotificationManager.cancel(0);
+                    }
 
                     SharedPreferences s = getSharedPreferences("fitness_plan", MODE_PRIVATE);
                     if (s.getFloat("height", 0.00f) != height || s.getFloat("weight", 0.00f) !=weight){

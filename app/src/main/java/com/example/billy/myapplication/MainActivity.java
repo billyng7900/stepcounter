@@ -3,6 +3,9 @@ package com.example.billy.myapplication;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.ActivityManager;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -68,6 +71,10 @@ public class MainActivity extends Activity implements SensorEventListener{
         {
             stepText.setText(String.valueOf(0));
         }
+        if(getSharedPreferences("user_info",MODE_PRIVATE).getBoolean("stautsBar",false))
+        {
+            setUpFixedNotification();
+        }
         if(!isMyServiceRunning(SensorService.class))
             onStartService();
 
@@ -123,6 +130,43 @@ public class MainActivity extends Activity implements SensorEventListener{
             }
         }
         return false;
+    }
+
+    public void setUpFixedNotification() {
+        SharedPreferences s = getSharedPreferences("user_info", MODE_PRIVATE);
+        Boolean isStatusBar = s.getBoolean("stautsBar", true);
+
+        if (isStatusBar) {
+            int targetStep = settings.getInt("targetStepDay", 0);
+            String msgText = "Today step: "
+                    + stepCounter;
+            if (targetStep > 0) {
+                msgText += "\nTarget step: " +
+                        targetStep;
+            } else {
+                msgText += "\nSet up your fitness plan now!";
+            }
+            Notification.Builder fixedBuilder = new Notification.Builder(this);
+            Notification fixedNotification;
+            fixedBuilder.setSmallIcon(R.drawable.app_icon);
+            fixedBuilder.setContentTitle("Step Counter");
+            fixedBuilder.setContentText("Your step record");
+            fixedBuilder.setAutoCancel(true);
+            Intent nIntent = new Intent(this, MainActivity.class);
+            nIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, nIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            Intent intent1 = new Intent(this, FitnessActivity.class);
+            intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            PendingIntent pendingIntent1 = PendingIntent.getActivity(this, 0, intent1, PendingIntent.FLAG_UPDATE_CURRENT);
+            PendingIntent pendingIntent2 = PendingIntent.getActivity(this, 0, new Intent(this, FitnessPlan.class), PendingIntent.FLAG_UPDATE_CURRENT);
+            fixedBuilder.setContentIntent(pendingIntent);
+            //fixedBuilder.addAction(R.drawable.view_notification, "Show", pendingIntent1);
+            //fixedBuilder.addAction(R.drawable.view_step_record, "Review", pendingIntent2);
+            NotificationManager nManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+            fixedNotification = new Notification.BigTextStyle(fixedBuilder).bigText(msgText).build();
+            fixedNotification.flags = Notification.FLAG_ONGOING_EVENT | Notification.FLAG_NO_CLEAR;
+            nManager.notify(0, fixedNotification);
+        }
     }
 
     @Override

@@ -52,6 +52,7 @@
         <activity android:name=".ViewStepDetailActivity"
             android:label="View Step Detail"
             android:screenOrientation="portrait" />
+        <uses-permission android:name="android.permission.EXPAND_STATUS_BAR" />
     </application>
 
 </manifest>

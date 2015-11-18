@@ -45,6 +45,7 @@ public class SensorService extends Service implements SensorEventListener {
     Notification fixedNotification;
     private int remainingStep;
     private SharedPreferences settings;
+    private boolean hasOpenedNotificationBar;
 
     public SensorService() {
 
@@ -65,6 +66,7 @@ public class SensorService extends Service implements SensorEventListener {
         reminderBuilder = new Notification.Builder(this);
         settings = getSharedPreferences("fitness_plan", MODE_PRIVATE);
         registerReceiver(ReminderNotification,new IntentFilter("com.billyng.MYACTION"));
+        hasOpenedNotificationBar = false;
     }
 
     @Override
@@ -84,7 +86,7 @@ public class SensorService extends Service implements SensorEventListener {
         } else {
             Toast.makeText(this, "Counter Not available", Toast.LENGTH_SHORT).show();
         }
-        myTimer.scheduleAtFixedRate(myTimerStore,0,900000);//update db each 15 minutes if there is a change.
+        myTimer.scheduleAtFixedRate(myTimerStore, 0, 900000);//update db each 15 minutes if there is a change.
         setupReminder();
         return super.onStartCommand(intent, flags, startId);
     }
@@ -144,11 +146,12 @@ public class SensorService extends Service implements SensorEventListener {
         AlarmManager am = (AlarmManager) getSystemService(ALARM_SERVICE);
         am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY,pi);
     }
-    private void setUpFixedNotification()
+    public void setUpFixedNotification()
     {
         SharedPreferences s = getSharedPreferences("user_info", MODE_PRIVATE);
         Boolean isStatusBar = s.getBoolean("stautsBar",true);
         if(isStatusBar) {
+            hasOpenedNotificationBar = true;
             targetStep = settings.getInt("targetStepDay", 0);
             String msgText = "Today step: "
                     + stepCounter;
@@ -179,6 +182,11 @@ public class SensorService extends Service implements SensorEventListener {
             nManager.notify(0, fixedNotification);
         }
     }
+    public void closeNotification()
+    {
+        NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        mNotificationManager.cancel(0);
+    }
     private class MyTimerStore extends TimerTask {
         @Override
         public void run() {
@@ -206,6 +214,7 @@ public class SensorService extends Service implements SensorEventListener {
             }
         }
     }
+
     BroadcastReceiver ReminderNotification = new BroadcastReceiver()  {
         @Override
         public void onReceive(Context context, Intent intent) {
