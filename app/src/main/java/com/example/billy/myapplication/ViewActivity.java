@@ -151,6 +151,11 @@ public class ViewActivity extends Activity {
                         if(s.getBoolean("planStarted", false) && f.getBMI()>21) {
                             e.putBoolean("planStarted", true);
                         }else if(s.getBoolean("planStarted", false) && f.getBMI()<=21) {
+                            e.putFloat("height", 0.00f);
+                            e.putFloat("weight", 0.00f);
+                            e.putInt("targetTotal", 0);
+                            e.putInt("targetStepDay", 0);
+                            e.putString("startDate", "Null");
                             e.putBoolean("planStarted", false);
                         }else {
                             e.putBoolean("planStarted", false);
