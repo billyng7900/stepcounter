@@ -64,7 +64,6 @@ public class FitnessActivity extends Activity {
         gender = settings.getString("gender", "gender");
         if(height==0.00f || weight==0.00f){
             Intent intent = new Intent(this, UserInfoActivity.class);
-            intent.putExtra("msg", "Please input your information.");
             startActivity(intent);
         }
         fitness = new FitnessPlan(height, weight);

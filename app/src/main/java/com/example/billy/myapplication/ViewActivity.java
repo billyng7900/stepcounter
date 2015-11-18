@@ -149,11 +149,6 @@ public class ViewActivity extends Activity {
                         SharedPreferences.Editor e = s.edit();
                         FitnessPlan f = new FitnessPlan(height, weight);
                         if(s.getBoolean("planStarted", false) && f.getBMI()>21) {
-                            e.putFloat("height", s.getFloat("height", 0.00f));
-                            e.putFloat("weight", s.getFloat("weight", 0.00f));
-                            e.putInt("targetTotal", s.getInt("targetTotal", 0));
-                            e.putInt("targetStepDay", s.getInt("targetStepDay", 0));
-                            e.putString("startDate", s.getString("startDate", "ERROR"));
                             e.putBoolean("planStarted", true);
                         }else if(s.getBoolean("planStarted", false) && f.getBMI()<=21) {
                             e.putBoolean("planStarted", false);
