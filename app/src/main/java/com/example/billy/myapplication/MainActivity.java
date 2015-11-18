@@ -34,7 +34,7 @@ public class MainActivity extends Activity implements SensorEventListener{
     public MyReceiver receiver;
     StepDbHelper dbHelper;
     boolean hasRemainingStep, hasEnteredRecord;
-    SharedPreferences settings;
+    SharedPreferences settings,settings2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +47,7 @@ public class MainActivity extends Activity implements SensorEventListener{
         IntentFilter filter = new IntentFilter();
         filter.addAction("android.intent.action.teststepcounter");
         this.registerReceiver(receiver, filter);
+        settings2 = getSharedPreferences("user_info",MODE_PRIVATE);
         settings = getSharedPreferences("fitness_plan",MODE_PRIVATE);
     }
 
@@ -54,7 +55,7 @@ public class MainActivity extends Activity implements SensorEventListener{
     protected void onResume() {
         super.onResume();
 
-        if(settings.getFloat("height",0)==0)
+        if(settings2.getFloat("height",0)==0)
             hasEnteredRecord = false;
         else
             hasEnteredRecord = true;
