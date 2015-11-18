@@ -60,7 +60,6 @@ public class DailyFitnessActivity extends Activity {
         if(fitness.getBMI()>=25) {
             String s = "My Fitness Plan since: " + fitness.getStartDate()
                     + "\nAccumulated Steps: " + fitness.getAccumulatedStep()
-                    + "\nTarget Steps: " + fitness.getTargetStep()
                     + "\nTarget Days: " + fitness.getAccumulatedTargetDays();
             tv_targetDays.setText(s);
         }else{

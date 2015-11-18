@@ -92,13 +92,6 @@ public class FitnessPlan {
         return targetCalBurn;
     }
 
-    public int getTargetStep(){
-        if(getBMI()>=25) {
-            targetStep = (int) (getTargetCalBurn() / stepCal);
-        }
-        return targetStep;
-    }
-
     public int getDailyBurn(){
         int dailyBurn = 0;
         switch(gender){

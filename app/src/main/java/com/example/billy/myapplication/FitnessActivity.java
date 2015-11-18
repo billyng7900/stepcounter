@@ -38,7 +38,7 @@ public class FitnessActivity extends Activity {
         SharedPreferences.Editor editor = settings.edit();
         editor.putFloat("height", fitness.getHeight());
         editor.putFloat("weight", fitness.getWeight());
-        editor.putInt("targetTotal", fitness.getTargetStep());
+        editor.putInt("targetTotal", fitness.getTargetCalBurn());
         editor.putInt("targetStepDay", fitness.getHealthyStyle());
         editor.putString("startDate", fitness.getDate());
         editor.putBoolean("planStarted", true);
