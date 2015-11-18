@@ -14,7 +14,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class ViewStepDetail extends Activity {
+public class ViewStepDetailActivity extends Activity {
     TextView text_date,text_step,text_kcal,text_progressBar;
     ProgressBar progressBar;
     Step step;
@@ -28,6 +28,9 @@ public class ViewStepDetail extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_step_detail);
+
+        getActionBar().setDisplayHomeAsUpEnabled(true);
+
         text_date = (TextView)findViewById(R.id.text_Date);
         text_step = (TextView)findViewById(R.id.text_step);
         text_kcal = (TextView)findViewById(R.id.text_kcal);
@@ -58,19 +61,19 @@ public class ViewStepDetail extends Activity {
         }
         else
         {
-            dateString=" that day";
+            dateString=" on that day";
         }
         text_date.setText(step.getDate());
         text_step.setText("Step walked: " + step.getStep());
         int kcal = (int)(step.getStep()*stepCal);
-        text_kcal.setText("You have burned " + kcal +"kcal on"+dateString);
+        text_kcal.setText("Burned " + kcal +" kcal"+dateString);
         int result = (int)(((float)step.getStep()/(float)targetStep)*100);
         if((step.getConvertToDate().compareTo(stringToDate(planDate))>-1)) {
             if (result < 100) {
-                text_progressBar.setText("You have only walked " + result + "% of target step on"+dateString);
+                text_progressBar.setText("Achieved " + result + "% of target steps"+dateString);
             } else {
                 result = 100;
-                text_progressBar.setText("You have rearched the target on"+dateString+". Keep it on!");
+                text_progressBar.setText("Reached the target"+dateString+". Keep it on!");
             }
             progressBar.setProgress(result);
         }
@@ -104,7 +107,7 @@ public class ViewStepDetail extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_view_step_detail, menu);
+        getMenuInflater().inflate(R.menu.menu_subclass, menu);
         return true;
     }
 
@@ -115,8 +118,8 @@ public class ViewStepDetail extends Activity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if(id == android.R.id.home){
+            finish();
             return true;
         }
 

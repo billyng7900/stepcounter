@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">Step Counter</string>
 
     <string name="hello_world">Hello world!</string>
 
@@ -9,9 +9,9 @@
     <string name="action_info">Information</string>
 
     <string name="step_message">Current Step Today: </string>
-    <string name="title_activity_step_record">StepRecordActivity</string>
     <string name="step_record_title_date">Date</string>
     <string name="step_record_title_text">Step</string>
+
     <string name="main_button">View Step Record</string>
     <string name="main_set_plan">Set Fitness Plan Now!</string>
     <string name="name_Label">Name:</string>
@@ -19,16 +19,19 @@
     <string name="age_Label">Age:</string>
     <string name="height_Label">Height(m):</string>
     <string name="weight_Label">Weight(kg):</string>
+    <string name="noticbar_Label">Status Bar:</string>
     <string name="save_user_info_button">Save</string>
     <string name="set_button">Set</string>
     <string name="cancelButton">Cancel</string>
-    <string name="title_activity_step_chart_activity">StepChartActivity</string>
 
+    <string name="title_activity_step_record">StepRecordActivity</string>
+    <string name="title_activity_step_chart_activity">StepChartActivity</string>
+    <string name="title_activity_welcome">WelcomeActivity</string>
+    <string name="title_activity_view_step_detail">ViewStepDetail</string>
     <string name="title_activity_view_info_activity">ViewActivity</string>
+
     <string name="menu_back">Back</string>
     <string name="menu_fitness">Start New Fitness Plan</string>
     <string name="menu_new_fitness">View My Fitness Plan</string>
-    <string name="title_activity_welcome">WelcomeActivity</string>
-    <string name="title_activity_view_step_detail">ViewStepDetail</string>
 
 </resources>

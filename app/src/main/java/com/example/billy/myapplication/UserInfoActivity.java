@@ -82,6 +82,7 @@ public class UserInfoActivity extends Activity implements NumberPicker.OnValueCh
                     editor.putFloat("height", height);
                     editor.putInt("age", age);
                     editor.putString("gender", gender);
+                    editor.putBoolean("stautsBar", true);
                     editor.commit();
                     alertDialog.dismiss();
                     activity.finish();

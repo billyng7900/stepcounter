@@ -15,21 +15,24 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Switch;
 import android.widget.TextView;
 
 public class ViewActivity extends Activity {
 
     TextView tv_name, tv_age, tv_height, tv_weight, alertText;
     EditText et_alert;
+    Switch s_status;
     Button save,alertButtonOk,alertButtonCancel;
     float height, weight;
     int age;
     String name, gender;
-    Boolean isComplete;
+    Boolean isComplete, isStatusBar;
     AlertDialog alertDialog,alertDialogEdit;
     AlertDialog.Builder adb,adbEdit;
     Activity activity;
@@ -51,11 +54,13 @@ public class ViewActivity extends Activity {
         height = settings.getFloat("height", 0.00f);
         weight = settings.getFloat("weight", 0.00f);
         gender = settings.getString("gender", "");
+        isStatusBar = settings.getBoolean("stautsBar", true);
 
         tv_name = (TextView)findViewById(R.id.tv_name);
         tv_age = (TextView)findViewById(R.id.tv_age);
         tv_height = (TextView)findViewById(R.id.tv_height);
         tv_weight = (TextView)findViewById(R.id.tv_weight);
+        s_status = (Switch)findViewById(R.id.switch_notic);
         save = (Button)findViewById(R.id.tv_save);
         RadioGroup rG = (RadioGroup)findViewById(R.id.genderRadioGroup);
         RadioButton maleButton = (RadioButton)findViewById(R.id.maleButton);
@@ -65,6 +70,10 @@ public class ViewActivity extends Activity {
             maleButton.setChecked(true);
         else
             femaleButton.setChecked(true);
+        if(isStatusBar)
+            s_status.setChecked(true);
+        else
+            s_status.setChecked(false);
         tv_name.setText(name);
         tv_age.setText(String.valueOf(age));
         tv_height.setText(String.valueOf(height));
@@ -94,6 +103,16 @@ public class ViewActivity extends Activity {
                 showAge();
             }
         });
+        s_status.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    isStatusBar = true;
+                }else{
+                    isStatusBar = false;
+                }
+            }
+        });
         alertText = new TextView(this);
         adb = new AlertDialog.Builder(this);
         LayoutInflater inflater = this.getLayoutInflater();
@@ -116,7 +135,19 @@ public class ViewActivity extends Activity {
                     editor.putFloat("height", height);
                     editor.putInt("age", age);
                     editor.putString("gender", gender);
+                    editor.putBoolean("stautsBar", isStatusBar);
                     editor.commit();
+
+                    SharedPreferences s = getSharedPreferences("fitness_plan", MODE_PRIVATE);
+                    SharedPreferences.Editor e = s.edit();
+                    e.putFloat("height", s.getFloat("height", 0.00f));
+                    e.putFloat("weight", s.getFloat("weight", 0.00f));
+                    e.putInt("targetTotal", s.getInt("targetTotal", 0));
+                    e.putInt("targetStepDay", s.getInt("targetStepDay", 0));
+                    e.putString("startDate", s.getString("startDate", "ERROR"));
+                    e.putBoolean("planStarted", false);
+                    e.commit();
+
                     alertDialog.dismiss();
                     activity.finish();
                 } else {

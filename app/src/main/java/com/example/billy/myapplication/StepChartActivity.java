@@ -1,6 +1,5 @@
 package com.example.billy.myapplication;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
@@ -42,7 +41,7 @@ public class StepChartActivity extends Activity implements OnChartGestureListene
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_step_chart_activity);
+        setContentView(R.layout.activity_step_chart);
 
         getActionBar().setDisplayHomeAsUpEnabled(true);
 

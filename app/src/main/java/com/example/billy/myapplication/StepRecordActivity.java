@@ -4,20 +4,15 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
-import android.view.ActionMode;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 
@@ -41,7 +36,7 @@ public class StepRecordActivity extends Activity {
         switch (id) {
             case R.id.action_view_detail:
                 Step stepRecord = stepList.get(pos);
-                Intent i = new Intent(this,ViewStepDetail.class);
+                Intent i = new Intent(this,ViewStepDetailActivity.class);
                 i.putExtra("stepDate", stepRecord.getDate());
                 i.putExtra("stepRecord",stepRecord.getStep());
                 startActivity(i);
@@ -54,7 +49,7 @@ public class StepRecordActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step_record);
-        ActionBar ab = getActionBar();
+
         getActionBar().setDisplayHomeAsUpEnabled(true);
 
         stepList = new ArrayList<>();
