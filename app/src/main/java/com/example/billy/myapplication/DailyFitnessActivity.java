@@ -54,10 +54,12 @@ public class DailyFitnessActivity extends Activity {
         fitness = new FitnessPlan(height, weight);
         fitness.setStartDate(startDate);
         fitness.setGender(gender);
+        fitness.setPlanStart(planStarted);
         stepArrayList = new ArrayList<>();
 
         FitnessPlan f = new FitnessPlan(n_height, n_weight);
         f.setGender(gender);
+        f.setPlanStart(planStarted);
         getStepRecord();
 
         tv_dailyStep = (TextView)findViewById(R.id.tv_dailyStep);
