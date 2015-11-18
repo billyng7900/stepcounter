@@ -66,7 +66,7 @@ public class ViewStepDetailActivity extends Activity {
         text_date.setText(step.getDate());
         text_step.setText("Step walked: " + step.getStep());
         int kcal = (int)(step.getStep()*stepCal);
-        text_kcal.setText("Burned " + kcal +" kcal"+dateString);
+        text_kcal.setText("Burned " + kcal +" cal"+dateString);
         int result = (int)(((float)step.getStep()/(float)targetStep)*100);
         if((step.getConvertToDate().compareTo(stringToDate(planDate))>-1)) {
             if (result < 100) {
