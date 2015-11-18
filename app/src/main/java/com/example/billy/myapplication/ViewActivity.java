@@ -154,7 +154,7 @@ public class ViewActivity extends Activity {
                             e.putFloat("height", 0.00f);
                             e.putFloat("weight", 0.00f);
                             e.putInt("targetTotal", 0);
-                            e.putInt("targetStepDay", 0);
+                            e.putInt("targetStepDay", 6000);
                             e.putString("startDate", "Null");
                             e.putBoolean("planStarted", false);
                         }else {
