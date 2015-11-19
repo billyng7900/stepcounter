@@ -224,10 +224,10 @@ public class SensorService extends Service implements SensorEventListener {
                 Toast.makeText(context, String.valueOf(remainingStep), Toast.LENGTH_SHORT);
                 if (remainingStep > 2000) {
                     title = "Go out for a walk!";
-                    content = "you still have to walk " + (remainingStep) + " today";
+                    content = "you still have to walk " + (remainingStep) + " steps today";
                 } else if (remainingStep < 2000 && remainingStep > 0) {
                     title = "Just little to go";
-                    content = "you still have to walk " + (remainingStep) + " today";
+                    content = "you still have to walk " + (remainingStep) + " steps today";
                 } else {
                     title = "You have reached the target";
                     content = "Click this to view your step record today";
