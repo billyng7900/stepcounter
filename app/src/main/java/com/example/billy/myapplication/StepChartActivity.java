@@ -48,7 +48,7 @@ public class StepChartActivity extends Activity implements OnChartGestureListene
         lineChart = (LineChart)findViewById(R.id.chart);
         dbHelper = new StepDbHelper(this);
         settings = getSharedPreferences("fitness_plan", MODE_PRIVATE);
-        targetStep = settings.getInt("targetStepDay",0);
+        targetStep = settings.getInt("targetStepDay",600);
         lineChart.setOnChartGestureListener(this);
         lineChart.setOnChartValueSelectedListener(this);
         lineChart.setDrawGridBackground(false);
