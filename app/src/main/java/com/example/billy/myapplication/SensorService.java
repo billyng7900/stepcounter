@@ -137,8 +137,8 @@ public class SensorService extends Service implements SensorEventListener {
     private void setupReminder()
     {
         Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY,0);
-        calendar.set(Calendar.MINUTE,19);
+        calendar.set(Calendar.HOUR_OF_DAY,17);
+        calendar.set(Calendar.MINUTE,0);
         calendar.set(Calendar.SECOND,0);
         calendar.set(Calendar.MILLISECOND, 0);
         Intent reminderNotification = new Intent("com.billyng.MYACTION");

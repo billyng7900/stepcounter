@@ -22,7 +22,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7a5c20b2-fb97-48d2-b475-b4e7a6c194cb" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/billy/myapplication/MainActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/billy/myapplication/MainActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/billy/myapplication/SensorService.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/billy/myapplication/SensorService.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -68,8 +67,8 @@
       <file leaf-file-name="SensorService.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/billy/myapplication/SensorService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="6.0297523">
-              <caret line="220" column="20" selection-start-line="220" selection-start-column="20" selection-end-line="220" selection-end-column="20" />
+            <state vertical-scroll-proportion="0.40826446">
+              <caret line="140" column="38" selection-start-line="140" selection-start-column="38" selection-end-line="140" selection-end-column="38" />
               <folding>
                 <element signature="e#8494#10174#0" expanded="true" />
                 <element signature="e#10173#10174#0" expanded="true" />
@@ -2190,7 +2189,13 @@
       <option name="project" value="LOCAL" />
       <updated>1447867783953</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="set default target = 6000">
+      <created>1447950011328</created>
+      <option name="number" value="00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1447950011328</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TodoView">
@@ -2256,7 +2261,8 @@
     <MESSAGE value="setup notification logic" />
     <MESSAGE value="Merge remote-tracking branch 'origin/master'&#10;&#10;Conflicts:&#10;&#9;app/src/main/java/com/example/billy/myapplication/ViewStepDetailActivity.java&#10;" />
     <MESSAGE value="fixed bug" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed bug" />
+    <MESSAGE value="set default target = 6000" />
+    <option name="LAST_COMMIT_MESSAGE" value="set default target = 6000" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2704,8 +2710,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/billy/myapplication/SensorService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="6.0297523">
-          <caret line="220" column="20" selection-start-line="220" selection-start-column="20" selection-end-line="220" selection-end-column="20" />
+        <state vertical-scroll-proportion="0.40826446">
+          <caret line="140" column="38" selection-start-line="140" selection-start-column="38" selection-end-line="140" selection-end-column="38" />
           <folding>
             <element signature="e#8494#10174#0" expanded="true" />
             <element signature="e#10173#10174#0" expanded="true" />
