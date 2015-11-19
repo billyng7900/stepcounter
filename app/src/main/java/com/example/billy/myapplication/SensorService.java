@@ -71,7 +71,7 @@ public class SensorService extends Service implements SensorEventListener {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        targetStep = settings.getInt("targetStepDay",0);
+        targetStep = settings.getInt("targetStepDay",6000);
         String[] args = {getDate()};
         int dbStep = dbHelper.getDbStep(args, context);
         if(dbStep!=-1)
@@ -137,8 +137,8 @@ public class SensorService extends Service implements SensorEventListener {
     private void setupReminder()
     {
         Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY,17);
-        calendar.set(Calendar.MINUTE,0);
+        calendar.set(Calendar.HOUR_OF_DAY,0);
+        calendar.set(Calendar.MINUTE,19);
         calendar.set(Calendar.SECOND,0);
         calendar.set(Calendar.MILLISECOND, 0);
         Intent reminderNotification = new Intent("com.billyng.MYACTION");
@@ -152,7 +152,7 @@ public class SensorService extends Service implements SensorEventListener {
         Boolean isStatusBar = s.getBoolean("stautsBar",true);
         if(isStatusBar) {
             hasOpenedNotificationBar = true;
-            targetStep = settings.getInt("targetStepDay", 0);
+            targetStep = settings.getInt("targetStepDay", 6000);
             String msgText = "Today step: "
                     + stepCounter;
             if (targetStep > 0) {
@@ -218,7 +218,7 @@ public class SensorService extends Service implements SensorEventListener {
     BroadcastReceiver ReminderNotification = new BroadcastReceiver()  {
         @Override
         public void onReceive(Context context, Intent intent) {
-            if(targetStep == 0) {
+            if(targetStep > 0) {
                 String title, content;
                 int remainingStep = targetStep - stepCounter;
                 Toast.makeText(context, String.valueOf(remainingStep), Toast.LENGTH_SHORT);

@@ -85,7 +85,7 @@ public class MainActivity extends Activity implements SensorEventListener{
 
     public void setUpTarget()
     {
-        int targetStep = settings.getInt("targetStepDay",0);
+        int targetStep = settings.getInt("targetStepDay",6000);
         hasRemainingStep = false;
         if(targetStep!=0)
         {
@@ -261,7 +261,7 @@ public class MainActivity extends Activity implements SensorEventListener{
             if(hasRemainingStep)
             {
                 SharedPreferences settings = getSharedPreferences("fitness_plan",MODE_PRIVATE);
-                int targetStep = settings.getInt("targetStepDay", 0);
+                int targetStep = settings.getInt("targetStepDay", 6000);
                 int remainingStep = targetStep - stepCounter;
                 if(remainingStep>0) {
                     targetText.setText("Today Remaining Step: " + remainingStep);
